@@ -6,7 +6,10 @@ export async function GET() {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Vous devez être connecté pour voir vos favoris" },
+        { status: 401 },
+      );
     }
 
     const favorites = await prisma.favorite.findMany({
@@ -29,7 +32,7 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching favorites:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Erreur lors du chargement des favoris" },
       { status: 500 },
     );
   }
@@ -39,14 +42,17 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Vous devez être connecté pour ajouter des favoris" },
+        { status: 401 },
+      );
     }
 
     const { countryId } = await request.json();
 
     if (!countryId) {
       return NextResponse.json(
-        { error: "Country ID is required" },
+        { error: "L'identifiant du pays est requis" },
         { status: 400 },
       );
     }
@@ -62,7 +68,7 @@ export async function POST(request: Request) {
 
     if (existingFavorite) {
       return NextResponse.json(
-        { error: "Country already in favorites" },
+        { error: "Ce pays est déjà dans vos favoris" },
         { status: 409 },
       );
     }
@@ -81,7 +87,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Error adding favorite:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Erreur lors de l'ajout aux favoris" },
       { status: 500 },
     );
   }

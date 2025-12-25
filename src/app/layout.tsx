@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { PageTransition } from "@/components/providers/PageTransition";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export const metadata: Metadata = {
   title: {
@@ -81,12 +82,14 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className="font-outfit antialiased">
-        <SessionProvider>
-          <ThemeProvider>
-            <PageTransition>{children}</PageTransition>
-            <ToastProvider />
-          </ThemeProvider>
-        </SessionProvider>
+        <ErrorBoundary>
+          <SessionProvider>
+            <ThemeProvider>
+              <PageTransition>{children}</PageTransition>
+              <ToastProvider />
+            </ThemeProvider>
+          </SessionProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

@@ -9,7 +9,10 @@ export async function GET() {
     // Vérifier l'authentification
     const session = await auth();
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Vous devez être connecté pour accéder aux recommandations" },
+        { status: 401 },
+      );
     }
 
     // Récupérer le questionnaire de l'utilisateur
@@ -26,7 +29,7 @@ export async function GET() {
       return NextResponse.json(
         {
           error:
-            "No questionnaire found. Please complete the questionnaire first.",
+            "Aucun questionnaire trouvé. Veuillez d'abord compléter le questionnaire pour recevoir des recommandations personnalisées.",
         },
         { status: 404 },
       );
@@ -44,7 +47,10 @@ export async function GET() {
 
     if (countries.length === 0) {
       return NextResponse.json(
-        { error: "No country data available" },
+        {
+          error:
+            "Aucune donnée de pays disponible. Veuillez contacter l'administrateur.",
+        },
         { status: 404 },
       );
     }
@@ -81,13 +87,19 @@ export async function GET() {
 
     if (error instanceof Error && error.message.includes("ANTHROPIC_API_KEY")) {
       return NextResponse.json(
-        { error: "API configuration error. Please contact support." },
+        {
+          error:
+            "Erreur de configuration. Veuillez contacter l'administrateur.",
+        },
         { status: 500 },
       );
     }
 
     return NextResponse.json(
-      { error: "Failed to generate recommendations" },
+      {
+        error:
+          "Impossible de générer les recommandations. Veuillez réessayer plus tard.",
+      },
       { status: 500 },
     );
   }
