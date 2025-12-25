@@ -1,0 +1,8 @@
+# robots.txt pour NomadCompass
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /auth/
+
+# Sitemap
+Sitemap: https://nomadcompass.com/sitemap.xml
