@@ -5,6 +5,13 @@ import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { PageTransition } from "@/components/providers/PageTransition";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -80,7 +87,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning className={outfit.variable}>
       <body className="font-outfit antialiased">
         <ErrorBoundary>
           <SessionProvider>
