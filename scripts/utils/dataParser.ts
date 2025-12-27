@@ -14,11 +14,8 @@ export interface ParsedCountryData {
   transportIndex: number | null;
   visaRequirements: string | null;
   taxRate: number | null;
-  rawData: {
-    numbeo?: NumbeoData;
-    climate?: ClimateData;
-    scrapedAt: string;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  rawData: any;
 }
 
 /**
@@ -50,11 +47,13 @@ export function parseCountryData(
     taxRate: null, // TODO: Add tax rate scraper
 
     // Store raw data for debugging and future reference
-    rawData: {
-      ...(numbeoData && { numbeo: numbeoData }),
-      ...(climateData && { climate: climateData }),
-      scrapedAt: new Date().toISOString(),
-    },
+    rawData: JSON.parse(
+      JSON.stringify({
+        ...(numbeoData && { numbeo: numbeoData }),
+        ...(climateData && { climate: climateData }),
+        scrapedAt: new Date().toISOString(),
+      }),
+    ),
   };
 }
 

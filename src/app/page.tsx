@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Button, ThemeToggle } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { UserDropdown } from "@/components/auth/UserDropdown";
 import { Globe, Sparkles, Shield, TrendingUp } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gradient-to-b dark:from-gray-900 dark:to-gray-800">
       <header className="border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-700 dark:bg-gray-800/80">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
@@ -16,7 +16,6 @@ export default function HomePage() {
             NomadCompass
           </Link>
           <div className="flex items-center gap-3">
-            <ThemeToggle />
             <UserDropdown />
           </div>
         </div>
@@ -35,7 +34,7 @@ export default function HomePage() {
                 Votre guide d&apos;expatriation
               </span>
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-400 sm:mt-6 sm:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 dark:text-gray-300 sm:mt-6 sm:text-lg">
               Plateforme IA d&apos;analyse d&apos;expatriation pour les Français
               souhaitant s&apos;installer à l&apos;étranger. Trouvez le pays
               parfait selon votre profil.
@@ -72,7 +71,7 @@ export default function HomePage() {
               <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                 Analyse IA Personnalisée
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 Recommandations basées sur votre profil, budget et priorités
                 grâce à Claude AI
               </p>
@@ -85,7 +84,7 @@ export default function HomePage() {
               <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                 Données à Jour
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 Coût de vie, climat, sécurité, santé actualisés régulièrement
               </p>
             </div>
@@ -97,7 +96,7 @@ export default function HomePage() {
               <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                 Comparaison Détaillée
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 Comparez jusqu&apos;à 3 pays sur tous les critères importants
               </p>
             </div>

@@ -61,7 +61,7 @@ export default async function AdminDashboard() {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Dashboard Admin
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
           Vue d'ensemble de la plateforme NomadCompass
         </p>
       </div>
@@ -77,7 +77,7 @@ export default async function AdminDashboard() {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                  <p className="text-sm font-medium text-gray-500 dark:text-gray-300">
                     {stat.label}
                   </p>
                   <p className="mt-2 text-3xl font-bold text-gray-900 dark:text-white">
@@ -101,16 +101,16 @@ export default async function AdminDashboard() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Nom
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Email
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Rôle
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Inscription
                 </th>
               </tr>
@@ -124,7 +124,7 @@ export default async function AdminDashboard() {
                   <td className="py-4 text-sm font-medium text-gray-900 dark:text-white">
                     {user.name || "N/A"}
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {user.email}
                   </td>
                   <td className="py-4">
@@ -138,7 +138,7 @@ export default async function AdminDashboard() {
                       {user.role}
                     </span>
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {new Date(user.createdAt).toLocaleDateString("fr-FR")}
                   </td>
                 </tr>

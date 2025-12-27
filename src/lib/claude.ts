@@ -5,10 +5,19 @@ import type {
   RecommendationsResponse,
 } from "@/types/recommendations";
 import type { QuestionnaireFormData } from "./validations/questionnaire";
+import { generateMockRecommendations } from "./mock-recommendations";
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY || "",
-});
+// Vérifier si on utilise le mode mock (pas d'API key ou API key par défaut)
+const USE_MOCK_MODE =
+  !process.env.ANTHROPIC_API_KEY ||
+  process.env.ANTHROPIC_API_KEY === "your-anthropic-api-key" ||
+  process.env.USE_MOCK_RECOMMENDATIONS === "true";
+
+const anthropic = USE_MOCK_MODE
+  ? null
+  : new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY || "",
+    });
 
 /**
  * Crée le prompt pour Claude avec le questionnaire et les données pays
@@ -133,6 +142,17 @@ export async function analyzeUserProfile(
   questionnaire: QuestionnaireFormData,
   countries: ClaudeAnalysisInput["countries"],
 ): Promise<CountryRecommendation[]> {
+  // Mode mock : utiliser les recommandations générées localement
+  if (USE_MOCK_MODE) {
+    console.log(
+      "🎭 Mode MOCK activé - Utilisation des recommandations simulées",
+    );
+    // Simuler un délai d'API pour plus de réalisme
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return generateMockRecommendations(questionnaire, countries);
+  }
+
+  // Mode API : utiliser Claude
   if (!process.env.ANTHROPIC_API_KEY) {
     throw new Error(
       "ANTHROPIC_API_KEY is not defined in environment variables",
@@ -142,7 +162,7 @@ export async function analyzeUserProfile(
   const prompt = createAnalysisPrompt({ questionnaire, countries });
 
   try {
-    const message = await anthropic.messages.create({
+    const message = await anthropic!.messages.create({
       model: "claude-sonnet-4-20250514",
       max_tokens: 4096,
       temperature: 0.7,

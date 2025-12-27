@@ -88,7 +88,7 @@ export default function AdminCountriesPage() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             Gestion des Pays
           </h1>
-          <p className="mt-2 text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-gray-600 dark:text-gray-300">
             {countries.length} pays dans la base de données
           </p>
         </div>
@@ -105,22 +105,22 @@ export default function AdminCountriesPage() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 dark:border-gray-700">
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Pays
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Code
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Continent
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Coût de vie
                 </th>
-                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-left text-sm font-medium text-gray-500 dark:text-gray-300">
                   Sécurité
                 </th>
-                <th className="pb-3 text-right text-sm font-medium text-gray-500 dark:text-gray-400">
+                <th className="pb-3 text-right text-sm font-medium text-gray-500 dark:text-gray-300">
                   Actions
                 </th>
               </tr>
@@ -139,22 +139,22 @@ export default function AdminCountriesPage() {
                       </span>
                     </div>
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {country.code}
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {country.continent}
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {country.data?.costOfLivingIndex?.toFixed(0) || "N/A"}
                   </td>
-                  <td className="py-4 text-sm text-gray-600 dark:text-gray-400">
+                  <td className="py-4 text-sm text-gray-600 dark:text-gray-300">
                     {country.data?.safetyIndex?.toFixed(0) || "N/A"}
                   </td>
                   <td className="py-4">
                     <div className="flex justify-end gap-2">
                       <Link href={`/admin/countries/${country.id}`}>
-                        <button className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800">
+                        <button className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800">
                           <Pencil className="h-4 w-4" />
                         </button>
                       </Link>

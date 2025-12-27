@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { AlertTriangle } from "lucide-react";
+import { Suspense } from "react";
 
-export default function AuthErrorPage() {
+function AuthErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
@@ -48,7 +49,7 @@ export default function AuthErrorPage() {
           <h1 className="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
             Erreur d&apos;authentification
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
             {getErrorMessage(error)}
           </p>
         </div>
@@ -70,11 +71,27 @@ export default function AuthErrorPage() {
         </div>
 
         {error && (
-          <p className="text-center text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-center text-xs text-gray-500 dark:text-gray-300">
             Code d&apos;erreur : {error}
           </p>
         )}
       </div>
     </div>
+  );
+}
+
+export default function AuthErrorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
+          <div className="text-center">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-500 border-t-transparent"></div>
+          </div>
+        </div>
+      }
+    >
+      <AuthErrorContent />
+    </Suspense>
   );
 }

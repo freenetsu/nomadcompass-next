@@ -55,13 +55,13 @@ export function CountryHeader({
             </button>
           )}
         </div>
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
           <MapPin className="h-4 w-4" />
           <span>{continent}</span>
         </div>
         {overallScore !== undefined && (
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-gray-500 dark:text-gray-300">
               Score de compatibilité :
             </span>
             <span className="text-xl font-bold text-brand-500">
@@ -84,13 +84,13 @@ export function CountryHeader({
               </h1>
               <Badge color="light">{code}</Badge>
             </div>
-            <div className="mt-2 flex items-center gap-2 text-gray-600 dark:text-gray-400">
+            <div className="mt-2 flex items-center gap-2 text-gray-600 dark:text-gray-300">
               <MapPin className="h-4 w-4" />
               <span>{continent}</span>
             </div>
             {overallScore !== undefined && (
               <div className="mt-4 flex items-center gap-2">
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-sm text-gray-500 dark:text-gray-300">
                   Score de compatibilité :
                 </span>
                 <span className="text-2xl font-bold text-brand-500">

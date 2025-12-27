@@ -56,23 +56,23 @@ export function CostOfLivingSection({
               >
                 <Icon className="h-6 w-6" />
               </div>
-              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-300">
                 {metric.label}
               </h4>
               {hasValue ? (
                 <>
                   <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
-                    {metric.value.toFixed(1)}
+                    {metric.value!.toFixed(1)}
                     <span className="text-sm font-normal text-gray-500">
                       {metric.unit}
                     </span>
                   </p>
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                     {metric.description}
                   </p>
                 </>
               ) : (
-                <p className="mt-2 text-sm text-gray-400 dark:text-gray-500">
+                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                   Données non disponibles
                 </p>
               )}
@@ -82,14 +82,14 @@ export function CostOfLivingSection({
       </div>
 
       {costOfLivingIndex && (
-        <div className="mt-6 rounded-xl bg-gray-50 p-4 dark:bg-gray-800/50">
+        <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4 dark:border-gray-700 dark:bg-gray-800/50">
           <div className="flex items-start gap-3">
-            <Coffee className="mt-0.5 h-5 w-5 text-gray-500 dark:text-gray-400" />
+            <Coffee className="mt-0.5 h-5 w-5 text-gray-500 dark:text-gray-300" />
             <div>
               <h5 className="font-medium text-gray-900 dark:text-white">
                 Que signifient ces indices ?
               </h5>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                 Un indice de 70 signifie que le coût est 30% moins élevé qu'à
                 New York. Un indice de 120 signifie qu'il est 20% plus élevé.
                 Les données sont collectées auprès de milliers d'utilisateurs à

@@ -77,12 +77,12 @@ export function Alert({
             {title}
           </h4>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400">{message}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-300">{message}</p>
 
           {showLink && (
             <Link
               href={linkHref}
-              className="mt-3 inline-block text-sm font-medium text-gray-500 underline dark:text-gray-400"
+              className="mt-3 inline-block text-sm font-medium text-gray-500 underline dark:text-gray-300"
             >
               {linkText}
             </Link>

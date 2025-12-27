@@ -18,7 +18,7 @@ export function ProfilStep() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Votre profil
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
           Aidez-nous à mieux vous connaître pour personnaliser nos
           recommandations.
         </p>
@@ -33,7 +33,6 @@ export function ProfilStep() {
             placeholder="Votre âge"
             {...register("profil.age")}
             error={!!errors.profil?.age}
-            hint={errors.profil?.age?.message}
           />
         </div>
 
@@ -43,7 +42,6 @@ export function ProfilStep() {
             id="situation"
             {...register("profil.situation")}
             error={!!errors.profil?.situation}
-            hint={errors.profil?.situation?.message}
             options={[
               { value: "celibataire", label: "Célibataire" },
               { value: "couple", label: "En couple" },
@@ -61,7 +59,6 @@ export function ProfilStep() {
             placeholder="Ex: Développeur, Designer, Médecin..."
             {...register("profil.profession")}
             error={!!errors.profil?.profession}
-            hint={errors.profil?.profession?.message}
           />
         </div>
 
@@ -71,7 +68,6 @@ export function ProfilStep() {
             id="niveauEtudes"
             {...register("profil.niveauEtudes")}
             error={!!errors.profil?.niveauEtudes}
-            hint={errors.profil?.niveauEtudes?.message}
             options={[
               { value: "bac", label: "Baccalauréat" },
               { value: "bac+2", label: "Bac +2 (BTS, DUT)" },

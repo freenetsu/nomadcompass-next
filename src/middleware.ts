@@ -1,26 +1,27 @@
+import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
 
+/**
+ * Middleware de protection des routes authentifiées
+ * Compatible avec database sessions (utilise auth() au lieu de getToken())
+ */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protection des routes admin
-  if (pathname.startsWith("/admin")) {
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXTAUTH_SECRET,
-    });
+  // Protection des routes authentifiées
+  if (pathname.startsWith("/admin") || pathname.startsWith("/dashboard")) {
+    const session = await auth();
 
-    // Pas connecté
-    if (!token) {
+    // Pas connecté : redirection vers signin
+    if (!session?.user) {
       const url = new URL("/auth/signin", request.url);
       url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);
     }
 
-    // Connecté mais pas admin
-    if (token.role !== "admin") {
+    // Connecté mais pas admin (seulement pour /admin)
+    if (pathname.startsWith("/admin") && session.user.role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
@@ -29,5 +30,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/dashboard/:path*"],
 };

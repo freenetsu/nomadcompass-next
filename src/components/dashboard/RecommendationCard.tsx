@@ -41,11 +41,11 @@ export function RecommendationCard({
   };
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-theme-sm transition-all hover:shadow-theme-md dark:border-gray-800 dark:bg-white/[0.03]">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-theme-sm transition-all hover:shadow-theme-md dark:border-gray-700 dark:bg-gray-800/80">
       {/* Header avec drapeau et nom */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gray-100 text-3xl dark:bg-gray-800">
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-gray-200 bg-white text-3xl dark:border-gray-600 dark:bg-gray-700">
             {flag}
           </div>
           <div>
@@ -57,7 +57,7 @@ export function RecommendationCard({
                 #{rank}
               </Badge>
             </div>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               {matchPercentage}% de correspondance
             </p>
           </div>
@@ -69,7 +69,7 @@ export function RecommendationCard({
             <span className="text-2xl font-bold text-brand-500">
               {overallScore}
             </span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               /100
             </span>
           </div>
@@ -85,45 +85,45 @@ export function RecommendationCard({
 
       {/* Scores détaillés */}
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        <div className="flex flex-col items-center rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-          <DollarSign className="mb-1 h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
+          <DollarSign className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
             Budget
           </span>
           <span className="mt-1 font-semibold text-gray-900 dark:text-white">
             {scores.budget}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-          <Thermometer className="mb-1 h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
+          <Thermometer className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
             Climat
           </span>
           <span className="mt-1 font-semibold text-gray-900 dark:text-white">
             {scores.climate}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-          <Shield className="mb-1 h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
+          <Shield className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
             Sécurité
           </span>
           <span className="mt-1 font-semibold text-gray-900 dark:text-white">
             {scores.safety}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-          <Heart className="mb-1 h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
+          <Heart className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">
             Santé
           </span>
           <span className="mt-1 font-semibold text-gray-900 dark:text-white">
             {scores.healthcare}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg bg-gray-50 p-3 dark:bg-gray-800/50">
-          <TrendingUp className="mb-1 h-4 w-4 text-gray-500 dark:text-gray-400" />
-          <span className="text-xs text-gray-500 dark:text-gray-400">Vie</span>
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
+          <TrendingUp className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
+          <span className="text-xs text-gray-600 dark:text-gray-300">Vie</span>
           <span className="mt-1 font-semibold text-gray-900 dark:text-white">
             {scores.lifestyle}
           </span>
@@ -187,7 +187,7 @@ export function RecommendationCard({
         </Link>
         <button
           type="button"
-          className="rounded-lg border border-gray-200 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+          className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
         >
           Comparer
         </button>

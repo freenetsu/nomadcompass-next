@@ -3,10 +3,15 @@
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function SignInPage() {
+function SignInContent() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+
   const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/dashboard" });
+    signIn("google", { callbackUrl });
   };
 
   return (
@@ -16,7 +21,7 @@ export default function SignInPage() {
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
             NomadCompass
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
             Connectez-vous pour accéder à votre profil
           </p>
         </div>
@@ -59,7 +64,7 @@ export default function SignInPage() {
                 <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                <span className="bg-white px-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
                   ou
                 </span>
               </div>
@@ -73,11 +78,31 @@ export default function SignInPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-gray-500 dark:text-gray-400">
+        <div className="text-center">
+          <p className="text-sm text-gray-600 dark:text-gray-300">
+            Vous n&apos;avez pas encore de compte ?{" "}
+            <Link
+              href="/auth/signup"
+              className="text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 font-medium"
+            >
+              Créer un compte
+            </Link>
+          </p>
+        </div>
+
+        <p className="text-center text-xs text-gray-500 dark:text-gray-300">
           En vous connectant, vous acceptez nos conditions d&apos;utilisation et
           notre politique de confidentialité.
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Chargement...</div>}>
+      <SignInContent />
+    </Suspense>
   );
 }

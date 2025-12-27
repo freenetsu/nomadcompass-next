@@ -2,6 +2,7 @@
 
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
+import { useTheme } from "@/context/ThemeContext";
 import type { CountryRecommendation } from "@/types/recommendations";
 
 // Import dynamique de ReactApexChart pour éviter les erreurs SSR
@@ -18,6 +19,9 @@ export function ComparisonChart({
   recommendations,
   maxCountries = 3,
 }: ComparisonChartProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   // Prendre les N premiers pays
   const topCountries = recommendations.slice(0, maxCountries);
 
@@ -36,6 +40,9 @@ export function ComparisonChart({
     ],
   }));
 
+  const labelColor = isDark ? "#cbd5e1" : "#475569";
+  const legendColor = isDark ? "#e2e8f0" : "#334155";
+
   const options: ApexOptions = {
     chart: {
       fontFamily: "Outfit, sans-serif",
@@ -43,8 +50,9 @@ export function ComparisonChart({
       toolbar: {
         show: false,
       },
+      background: "transparent",
     },
-    colors: ["#465fff", "#10b981", "#f59e0b"],
+    colors: ["#2563eb", "#10b981", "#f59e0b"],
     stroke: {
       width: 2,
     },
@@ -61,8 +69,9 @@ export function ComparisonChart({
       categories: categories,
       labels: {
         style: {
-          colors: ["#9CA3AF", "#9CA3AF", "#9CA3AF", "#9CA3AF", "#9CA3AF"],
+          colors: [labelColor, labelColor, labelColor, labelColor, labelColor],
           fontSize: "12px",
+          fontWeight: 500,
         },
       },
     },
@@ -77,10 +86,11 @@ export function ComparisonChart({
       horizontalAlign: "center",
       fontFamily: "Outfit",
       fontSize: "14px",
+      labels: {
+        colors: legendColor,
+      },
       markers: {
-        width: 10,
-        height: 10,
-        radius: 10,
+        size: 10,
       },
       itemMargin: {
         horizontal: 10,
@@ -88,6 +98,7 @@ export function ComparisonChart({
       },
     },
     tooltip: {
+      theme: isDark ? "dark" : "light",
       y: {
         formatter: (val: number) => `${val}/100`,
       },
@@ -97,6 +108,7 @@ export function ComparisonChart({
   return (
     <div className="w-full">
       <ReactApexChart
+        key={theme}
         options={options}
         series={series}
         type="radar"

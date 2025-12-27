@@ -32,7 +32,7 @@ export function PrioritesStep() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Vos priorités
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
           Notez de 1 (peu important) à 5 (très important) les critères suivants.
         </p>
       </div>
@@ -62,7 +62,7 @@ export function PrioritesStep() {
                   background: `linear-gradient(to right, rgb(70 95 255) 0%, rgb(70 95 255) ${((Number(value) - 1) / 4) * 100}%, rgb(229 231 235) ${((Number(value) - 1) / 4) * 100}%, rgb(229 231 235) 100%)`,
                 }}
               />
-              <div className="mt-1 flex justify-between text-xs text-gray-500 dark:text-gray-400">
+              <div className="mt-1 flex justify-between text-xs text-gray-500 dark:text-gray-300">
                 <span>Peu important</span>
                 <span>Très important</span>
               </div>

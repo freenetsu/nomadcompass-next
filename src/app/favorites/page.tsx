@@ -10,7 +10,7 @@ export default function FavoritesPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-gray-900">
         <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Skeleton className="h-8 w-48" />
@@ -29,14 +29,14 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
               >
                 <ArrowLeft className="h-5 w-5" />
                 <span className="hidden sm:inline">Retour</span>
@@ -45,7 +45,7 @@ export default function FavoritesPage() {
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Mes Favoris
                 </h1>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                   {favorites.length} pays sauvegardé
                   {favorites.length > 1 ? "s" : ""}
                 </p>
@@ -59,13 +59,13 @@ export default function FavoritesPage() {
         {favorites.length === 0 ? (
           <div className="flex min-h-[400px] items-center justify-center">
             <div className="max-w-md text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white dark:bg-gray-800">
                 <Heart className="h-8 w-8 text-gray-400" />
               </div>
               <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
                 Aucun favori
               </h2>
-              <p className="mt-2 text-gray-600 dark:text-gray-400">
+              <p className="mt-2 text-gray-600 dark:text-gray-300">
                 Ajoutez des pays à vos favoris depuis le dashboard ou les pages
                 de détails.
               </p>
@@ -93,7 +93,7 @@ export default function FavoritesPage() {
                       <h3 className="font-semibold text-gray-900 dark:text-white">
                         {favorite.country.name}
                       </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-500 dark:text-gray-300">
                         {favorite.country.continent}
                       </p>
                     </div>
@@ -110,7 +110,7 @@ export default function FavoritesPage() {
                   <div className="mt-4 grid grid-cols-2 gap-2">
                     {favorite.country.data.costOfLivingIndex && (
                       <div className="rounded-lg bg-gray-50 p-2 dark:bg-gray-800">
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-300">
                           Coût de vie
                         </p>
                         <p className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -120,7 +120,7 @@ export default function FavoritesPage() {
                     )}
                     {favorite.country.data.safetyIndex && (
                       <div className="rounded-lg bg-gray-50 p-2 dark:bg-gray-800">
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-gray-500 dark:text-gray-300">
                           Sécurité
                         </p>
                         <p className="text-sm font-semibold text-gray-900 dark:text-white">

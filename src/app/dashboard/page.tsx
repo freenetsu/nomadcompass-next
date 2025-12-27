@@ -15,7 +15,7 @@ export default function DashboardPage() {
   // État de chargement
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-gray-900">
         <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Skeleton className="h-8 w-64" />
@@ -45,7 +45,7 @@ export default function DashboardPage() {
   // État d'erreur
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-gray-900">
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="max-w-md text-center">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error-50 dark:bg-error-500/10">
@@ -54,7 +54,7 @@ export default function DashboardPage() {
             <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
               Erreur lors du chargement
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">{error}</p>
+            <p className="mt-2 text-gray-600 dark:text-gray-300">{error}</p>
             {error.includes("questionnaire") ? (
               <Link
                 href="/questionnaire"
@@ -79,14 +79,14 @@ export default function DashboardPage() {
   // Pas de recommandations
   if (!recommendations || recommendations.recommendations.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-white dark:bg-gray-900">
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="max-w-md text-center">
             <Globe className="mx-auto h-16 w-16 text-gray-400" />
             <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
               Aucune recommandation disponible
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-gray-600 dark:text-gray-300">
               Veuillez compléter le questionnaire pour recevoir des
               recommandations personnalisées.
             </p>
@@ -106,7 +106,7 @@ export default function DashboardPage() {
   const topCountry = countries[0];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* Header */}
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -114,7 +114,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-4">
               <Link
                 href="/"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
               >
                 <ArrowLeft className="h-5 w-5" />
                 <span className="hidden sm:inline">Retour</span>
@@ -123,14 +123,14 @@ export default function DashboardPage() {
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Vos Recommandations
                 </h1>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                   {countries.length} pays analysés selon votre profil
                 </p>
               </div>
             </div>
             <Link
               href="/questionnaire"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-white/80 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
             >
               Refaire le questionnaire
             </Link>
@@ -147,7 +147,7 @@ export default function DashboardPage() {
               <Target className="h-6 w-6 text-brand-500" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-500 dark:text-gray-300">
                 Meilleure recommandation
               </span>
               <div className="mt-2 flex items-center gap-2">
@@ -168,7 +168,7 @@ export default function DashboardPage() {
               <TrendingUp className="h-6 w-6 text-success-500" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-500 dark:text-gray-300">
                 Score moyen
               </span>
               <h4 className="mt-2 text-lg font-bold text-gray-800 dark:text-white/90">
@@ -187,13 +187,13 @@ export default function DashboardPage() {
               <Globe className="h-6 w-6 text-warning-500" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-500 dark:text-gray-300">
                 Catégorie budget
               </span>
               <h4 className="mt-2 text-lg font-bold capitalize text-gray-800 dark:text-white/90">
                 {analysis.budgetCategory}
               </h4>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                 {analysis.climatePreference}
               </p>
             </div>
@@ -217,7 +217,7 @@ export default function DashboardPage() {
             {analysis.topPriorities.map((priority, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 rounded-lg bg-gray-50 px-4 py-2 dark:bg-gray-800"
+                className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-800"
               >
                 <span className="text-sm font-medium text-gray-900 dark:text-white">
                   {priority.name}

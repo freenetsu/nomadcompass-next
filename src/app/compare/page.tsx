@@ -52,13 +52,13 @@ export default function ComparePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link
               href="/dashboard"
-              className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="hidden sm:inline">Retour</span>
@@ -190,7 +190,7 @@ export default function ComparePage() {
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Aucun pays sélectionné
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-gray-600 dark:text-gray-300">
               Recherchez et sélectionnez des pays ci-dessus pour commencer la
               comparaison
             </p>

@@ -13,48 +13,23 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    // Check for saved theme preference or system preference
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-
-    if (savedTheme) {
-      setThemeState(savedTheme);
-    } else if (systemPrefersDark) {
-      setThemeState("dark");
-    }
+    // Always force dark mode
+    const root = document.documentElement;
+    root.classList.add("dark");
   }, []);
 
-  useEffect(() => {
-    if (!mounted) return;
-
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme, mounted]);
-
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === "light" ? "dark" : "light"));
+    // No-op - dark mode is locked
   };
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
+  const setTheme = () => {
+    // No-op - dark mode is locked
   };
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return <>{children}</>;
-  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>

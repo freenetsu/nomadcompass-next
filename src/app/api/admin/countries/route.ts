@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth/helpers";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const session = await auth();
-    if (!session?.user || (session.user as any).role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Vérification admin avec helper type-safe
+    await requireAdmin();
 
     const countries = await prisma.country.findMany({
       include: {
@@ -33,10 +31,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const session = await auth();
-    if (!session?.user || (session.user as any).role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Vérification admin avec helper type-safe
+    await requireAdmin();
 
     const body = await request.json();
     const { name, code, flag, continent } = body;

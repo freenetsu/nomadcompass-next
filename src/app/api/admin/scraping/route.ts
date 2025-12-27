@@ -1,13 +1,11 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth/helpers";
 import { prisma } from "@/lib/prisma";
 
 export async function POST() {
   try {
-    const session = await auth();
-    if (!session?.user || (session.user as any).role !== "admin") {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // Vérification admin avec helper type-safe
+    await requireAdmin();
 
     // Récupérer tous les pays
     const countries = await prisma.country.findMany({

@@ -39,7 +39,7 @@ export default function AdminScrapingPage() {
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Scraping des données
         </h1>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
           Mettre à jour les données de tous les pays depuis Numbeo et
           Climate-Data
         </p>
@@ -51,7 +51,7 @@ export default function AdminScrapingPage() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Re-scraping complet
             </h3>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               Lance le scraping pour tous les pays. Cette opération peut prendre
               plusieurs minutes.
             </p>
@@ -93,7 +93,7 @@ export default function AdminScrapingPage() {
                   <p className="font-medium text-gray-900 dark:text-white">
                     {result.country}
                   </p>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                     {result.message}
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function AdminScrapingPage() {
       )}
 
       <Card title="Informations">
-        <div className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300">
           <div>
             <h4 className="font-medium text-gray-900 dark:text-white">
               Sources de données

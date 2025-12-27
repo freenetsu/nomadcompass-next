@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "@/lib/auth";
+import { isAdmin } from "@/lib/auth/helpers";
 import { redirect } from "next/navigation";
 import { LayoutDashboard, Globe, RefreshCw, LogOut, Home } from "lucide-react";
 
@@ -10,7 +11,8 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
 
-  if (!session?.user || (session.user as any).role !== "admin") {
+  // Vérification admin avec helper type-safe
+  if (!session?.user || !isAdmin(session)) {
     redirect("/");
   }
 
@@ -21,16 +23,16 @@ export default async function AdminLayout({
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex min-h-screen bg-white dark:bg-gray-900">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      <aside className="w-64 border-r border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800/90">
         <div className="flex h-full flex-col">
           {/* Header */}
           <div className="border-b border-gray-200 p-6 dark:border-gray-700">
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">
               Admin Panel
             </h1>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
               NomadCompass
             </p>
           </div>
@@ -43,7 +45,7 @@ export default async function AdminLayout({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700/60"
                 >
                   <Icon className="h-5 w-5" />
                   {item.label}
@@ -56,16 +58,16 @@ export default async function AdminLayout({
           <div className="border-t border-gray-200 p-4 dark:border-gray-700">
             <Link
               href="/"
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+              className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-800 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700/60"
             >
               <Home className="h-5 w-5" />
               Retour au site
             </Link>
-            <div className="mt-2 rounded-lg bg-gray-50 p-3 dark:bg-gray-900">
+            <div className="mt-2 rounded-lg bg-gray-50 p-3 dark:bg-gray-700/50">
               <p className="text-xs font-medium text-gray-900 dark:text-white">
                 {session.user.name}
               </p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
+              <p className="text-xs text-gray-600 dark:text-gray-300">
                 {session.user.email}
               </p>
             </div>

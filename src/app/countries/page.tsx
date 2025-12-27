@@ -132,7 +132,7 @@ export default function CountriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
@@ -140,7 +140,7 @@ export default function CountriesPage() {
               <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Tous les pays
               </h1>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
                 {filteredAndSortedCountries.length} pays disponibles
               </p>
             </div>
@@ -214,7 +214,7 @@ export default function CountriesPage() {
                       <h3 className="font-semibold text-gray-900 dark:text-white">
                         {country.name}
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 dark:text-gray-300">
                         {country.continent}
                       </p>
                     </div>
@@ -223,7 +223,7 @@ export default function CountriesPage() {
 
                 <div className="mt-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <span className="text-xs text-gray-600 dark:text-gray-300">
                       Coût de vie
                     </span>
                     <Badge
@@ -240,7 +240,7 @@ export default function CountriesPage() {
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <span className="text-xs text-gray-600 dark:text-gray-300">
                       Sécurité
                     </span>
                     <Badge
@@ -257,7 +257,7 @@ export default function CountriesPage() {
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-400">
+                    <span className="text-xs text-gray-600 dark:text-gray-300">
                       Climat
                     </span>
                     <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
@@ -274,7 +274,7 @@ export default function CountriesPage() {
             <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
               Aucun pays trouvé
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-400">
+            <p className="mt-2 text-gray-600 dark:text-gray-300">
               Essayez de modifier vos filtres de recherche
             </p>
           </div>

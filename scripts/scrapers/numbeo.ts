@@ -16,115 +16,82 @@ export interface NumbeoData {
 }
 
 /**
- * Scrape cost of living data from Numbeo for a specific country/city
+ * Scrape cost of living data from Numbeo for a specific country
  */
 export async function scrapeNumbeo(
   countryName: string,
   cityName?: string,
 ): Promise<NumbeoData | null> {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    args: ['--disable-blink-features=AutomationControlled']
+  });
   const page = await browser.newPage();
 
+  await page.setExtraHTTPHeaders({
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9',
+  });
+
   try {
-    // Construct Numbeo URL
-    const searchTerm = cityName ? `${cityName}, ${countryName}` : countryName;
-    const url = `https://www.numbeo.com/cost-of-living/in/${encodeURIComponent(searchTerm)}`;
+    console.log(`Scraping Numbeo for: ${countryName}`);
 
-    console.log(`Scraping Numbeo: ${url}`);
+    // Navigate to the rankings page
+    const url = 'https://www.numbeo.com/cost-of-living/rankings_by_country.jsp';
+    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
 
-    // Navigate to the page
-    await page.goto(url, { waitUntil: "networkidle" });
+    // Find the row for this country
+    const countryRow = page.locator(`tr:has-text("${countryName}")`).first();
+    const rowExists = (await countryRow.count()) > 0;
 
-    // Check if page exists
-    const notFound = await page.locator('text="City Not Found"').count();
-    if (notFound > 0) {
-      console.log(`City/Country not found on Numbeo: ${searchTerm}`);
+    if (!rowExists) {
+      console.log(`Country not found in rankings: ${countryName}`);
       return null;
     }
 
-    // Extract indices from the summary table
     const data: Partial<NumbeoData> = {
       country: countryName,
       city: cityName,
     };
 
-    // Cost of Living Index
-    const costOfLivingText = await page
-      .locator('tr:has-text("Cost of Living Index") td.priceValue')
-      .first()
-      .textContent();
-    data.costOfLivingIndex = parseFloat(costOfLivingText?.trim() || "0");
+    // Extract all the cells from the country row
+    const cells = await countryRow.locator('td').allTextContents();
 
-    // Rent Index
-    const rentText = await page
-      .locator('tr:has-text("Rent Index") td.priceValue')
-      .first()
-      .textContent();
-    data.rentIndex = parseFloat(rentText?.trim() || "0");
+    // Table structure: Rank, Country, Cost of Living Index, Rent Index, Cost of Living Plus Rent Index,
+    // Groceries Index, Restaurant Price Index, Local Purchasing Power Index
+    if (cells.length >= 7) {
+      data.costOfLivingIndex = parseFloat(cells[2]?.trim() || "0");
+      data.rentIndex = parseFloat(cells[3]?.trim() || "0");
+      data.groceriesIndex = parseFloat(cells[5]?.trim() || "0");
+      data.restaurantPriceIndex = parseFloat(cells[6]?.trim() || "0");
+      data.localPurchasingPowerIndex = parseFloat(cells[7]?.trim() || "0");
+    }
 
-    // Groceries Index
-    const groceriesText = await page
-      .locator('tr:has-text("Groceries Index") td.priceValue')
-      .first()
-      .textContent();
-    data.groceriesIndex = parseFloat(groceriesText?.trim() || "0");
+    // Navigate to quality of life rankings page
+    const qolUrl = 'https://www.numbeo.com/quality-of-life/rankings_by_country.jsp';
+    await page.goto(qolUrl, { waitUntil: "networkidle", timeout: 60000 });
 
-    // Restaurant Price Index
-    const restaurantText = await page
-      .locator('tr:has-text("Restaurant Price Index") td.priceValue')
-      .first()
-      .textContent();
-    data.restaurantPriceIndex = parseFloat(restaurantText?.trim() || "0");
+    // Find the row for this country
+    const qolRow = page.locator(`tr:has-text("${countryName}")`).first();
+    const qolRowExists = (await qolRow.count()) > 0;
 
-    // Local Purchasing Power Index
-    const purchasingPowerText = await page
-      .locator('tr:has-text("Local Purchasing Power Index") td.priceValue')
-      .first()
-      .textContent();
-    data.localPurchasingPowerIndex = parseFloat(
-      purchasingPowerText?.trim() || "0",
-    );
+    if (qolRowExists) {
+      const qolCells = await qolRow.locator('td').allTextContents();
 
-    // Navigate to quality of life page
-    const qolUrl = `https://www.numbeo.com/quality-of-life/in/${encodeURIComponent(searchTerm)}`;
-    await page.goto(qolUrl, { waitUntil: "networkidle" });
+      // Table structure: Rank, Country, Quality of Life Index, Purchasing Power Index, Safety Index,
+      // Health Care Index, Cost of Living Index, Property Price to Income Ratio, Traffic Commute Time Index,
+      // Pollution Index, Climate Index
+      if (qolCells.length >= 10) {
+        data.safetyIndex = parseFloat(qolCells[4]?.trim() || "0");
+        data.healthcareIndex = parseFloat(qolCells[5]?.trim() || "0");
+        data.pollutionIndex = parseFloat(qolCells[9]?.trim() || "0");
+        data.trafficIndex = parseFloat(qolCells[8]?.trim() || "0");
+        data.climateIndex = parseFloat(qolCells[10]?.trim() || "0");
+      }
+    }
 
-    // Safety Index
-    const safetyText = await page
-      .locator('tr:has-text("Safety Index") td')
-      .last()
-      .textContent();
-    data.safetyIndex = parseFloat(safetyText?.trim() || "0");
-
-    // Health Care Index
-    const healthcareText = await page
-      .locator('tr:has-text("Health Care Index") td')
-      .last()
-      .textContent();
-    data.healthcareIndex = parseFloat(healthcareText?.trim() || "0");
-
-    // Pollution Index
-    const pollutionText = await page
-      .locator('tr:has-text("Pollution Index") td')
-      .last()
-      .textContent();
-    data.pollutionIndex = parseFloat(pollutionText?.trim() || "0");
-
-    // Traffic Index
-    const trafficText = await page
-      .locator('tr:has-text("Traffic Index") td')
-      .last()
-      .textContent();
-    data.trafficIndex = parseFloat(trafficText?.trim() || "0");
-
-    // Climate Index
-    const climateText = await page
-      .locator('tr:has-text("Climate Index") td')
-      .last()
-      .textContent();
-    data.climateIndex = parseFloat(climateText?.trim() || "0");
-
-    console.log(`Successfully scraped data for ${searchTerm}`);
+    console.log(`Successfully scraped data for ${countryName}`);
     return data as NumbeoData;
   } catch (error) {
     console.error(`Error scraping Numbeo for ${countryName}:`, error);

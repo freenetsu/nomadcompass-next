@@ -36,12 +36,12 @@ export default async function CountryPage({
   const country = countryData[id] || countryData.portugal;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           <Link
             href="/dashboard"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           >
             <ArrowLeft className="h-5 w-5" />
             Résultats
@@ -67,7 +67,7 @@ export default async function CountryPage({
               </div>
             </div>
           </div>
-          <p className="mt-6 max-w-3xl text-lg text-gray-600 dark:text-gray-400">
+          <p className="mt-6 max-w-3xl text-lg text-gray-600 dark:text-gray-300">
             {country.description}
           </p>
         </div>

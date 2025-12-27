@@ -9,16 +9,54 @@ import {
 
 const prisma = new PrismaClient();
 
+// English country names for Numbeo
+const countryNamesEN: Record<string, string> = {
+  Portugal: "Portugal",
+  Espagne: "Spain",
+  Thaïlande: "Thailand",
+  Mexique: "Mexico",
+  Canada: "Canada",
+  "Émirats Arabes Unis": "United Arab Emirates",
+  Indonésie: "Indonesia",
+  Vietnam: "Vietnam",
+  Chine: "China",
+  Qatar: "Qatar",
+  "Arabie Saoudite": "Saudi Arabia",
+  Bahreïn: "Bahrain",
+  Oman: "Oman",
+  Koweït: "Kuwait",
+  Singapour: "Singapore",
+  Malaisie: "Malaysia",
+  Philippines: "Philippines",
+  Japon: "Japan",
+  "Corée du Sud": "South Korea",
+  Grèce: "Greece",
+  Italie: "Italy",
+};
+
 // Capital cities for each country (used for climate data)
 const countryCapitals: Record<string, string> = {
   Portugal: "Lisbon",
-  Spain: "Madrid",
-  Thailand: "Bangkok",
-  Mexico: "Mexico City",
+  Espagne: "Madrid",
+  Thaïlande: "Bangkok",
+  Mexique: "Mexico City",
   Canada: "Toronto",
-  "United Arab Emirates": "Dubai",
-  Indonesia: "Bali",
+  "Émirats Arabes Unis": "Dubai",
+  Indonésie: "Jakarta",
   Vietnam: "Ho Chi Minh City",
+  Chine: "Beijing",
+  Qatar: "Doha",
+  "Arabie Saoudite": "Riyadh",
+  Bahreïn: "Manama",
+  Oman: "Muscat",
+  Koweït: "Kuwait City",
+  Singapour: "Singapore",
+  Malaisie: "Kuala Lumpur",
+  Philippines: "Manila",
+  Japon: "Tokyo",
+  "Corée du Sud": "Seoul",
+  Grèce: "Athens",
+  Italie: "Rome",
 };
 
 interface ScrapingResult {
@@ -48,10 +86,11 @@ async function scrapeCountryData(
 
   try {
     const capitalCity = countryCapitals[countryName] || countryName;
+    const countryNameEN = countryNamesEN[countryName] || countryName;
 
     // Scrape Numbeo data
     console.log(`  📊 Fetching Numbeo data...`);
-    const numbeoData = await scrapeNumbeo(countryName, capitalCity);
+    const numbeoData = await scrapeNumbeo(countryNameEN, capitalCity);
 
     if (!numbeoData) {
       console.log(`  ⚠️  No Numbeo data found`);
@@ -64,11 +103,11 @@ async function scrapeCountryData(
 
     // Scrape climate data
     console.log(`  🌡️  Fetching climate data...`);
-    let climateData = await scrapeClimate(countryName, capitalCity);
+    let climateData = await scrapeClimate(countryNameEN, capitalCity);
 
     if (!climateData) {
       console.log(`  ⚠️  No climate data scraped, using fallback...`);
-      climateData = getClimateDataFallback(countryName, capitalCity);
+      climateData = getClimateDataFallback(countryNameEN, capitalCity);
     } else {
       console.log(`  ✅ Climate data retrieved`);
     }

@@ -43,7 +43,7 @@ export function Dropdown({
     <div
       ref={dropdownRef}
       className={cn(
-        "absolute z-40 mt-2 min-w-48 rounded-xl border border-gray-200 bg-white py-2 shadow-theme-lg dark:border-gray-800 dark:bg-gray-900",
+        "absolute z-40 mt-2 min-w-48 rounded-xl border border-gray-200 bg-white py-2 shadow-theme-lg dark:border-gray-700 dark:bg-gray-800",
         align === "right" ? "right-0" : "left-0",
         className,
       )}
@@ -82,8 +82,8 @@ export function DropdownItem({
   const combinedClassName = cn(
     "flex w-full items-center gap-3 px-4 py-2 text-left text-sm transition-colors",
     danger
-      ? "text-error-600 hover:bg-error-50 dark:text-error-400 dark:hover:bg-error-500/10"
-      : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800",
+      ? "text-error-600 hover:bg-error-50 dark:text-error-300 dark:hover:bg-error-900/30"
+      : "text-gray-800 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700",
     className,
   );
 

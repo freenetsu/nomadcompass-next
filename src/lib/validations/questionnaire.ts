@@ -7,11 +7,11 @@ export const profilSchema = z.object({
     .min(18, "Vous devez avoir au moins 18 ans")
     .max(100, "Age invalide"),
   situation: z.enum(["celibataire", "couple", "famille"], {
-    required_error: "Veuillez sélectionner votre situation familiale",
+    message: "Veuillez sélectionner votre situation familiale",
   }),
   profession: z.string().min(2, "Veuillez indiquer votre profession"),
   niveauEtudes: z.enum(["bac", "bac+2", "bac+3", "bac+5", "doctorat"], {
-    required_error: "Veuillez sélectionner votre niveau d'études",
+    message: "Veuillez sélectionner votre niveau d'études",
   }),
 });
 
@@ -28,7 +28,7 @@ export const budgetSchema = z.object({
   revenus: z.enum(
     ["salarie", "freelance", "entrepreneur", "retraite", "rentier"],
     {
-      required_error: "Veuillez sélectionner votre source de revenus",
+      message: "Veuillez sélectionner votre source de revenus",
     },
   ),
 });
@@ -36,13 +36,13 @@ export const budgetSchema = z.object({
 // Step 3: Climat
 export const climatSchema = z.object({
   temperaturePreferee: z.enum(["froid", "tempere", "chaud", "tropical"], {
-    required_error: "Veuillez sélectionner votre température préférée",
+    message: "Veuillez sélectionner votre température préférée",
   }),
   saisonPreferee: z.enum(["printemps", "ete", "automne", "hiver"], {
-    required_error: "Veuillez sélectionner votre saison préférée",
+    message: "Veuillez sélectionner votre saison préférée",
   }),
   precipitations: z.enum(["peu", "moyen", "beaucoup"], {
-    required_error:
+    message:
       "Veuillez indiquer votre préférence pour les précipitations",
   }),
 });

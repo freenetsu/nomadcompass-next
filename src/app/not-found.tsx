@@ -14,7 +14,7 @@ export default function NotFound() {
         <h2 className="mt-2 text-xl font-semibold text-gray-900 dark:text-white">
           Page introuvable
         </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
           Désolé, nous n&apos;avons pas pu trouver la page que vous recherchez.
         </p>
         <div className="mt-8 flex gap-3 justify-center">

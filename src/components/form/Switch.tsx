@@ -38,7 +38,7 @@ export function Switch({
         "flex cursor-pointer select-none items-center gap-3 text-sm font-medium",
         disabled
           ? "cursor-not-allowed text-gray-400"
-          : "text-gray-700 dark:text-gray-400",
+          : "text-gray-700 dark:text-gray-300",
         className,
       )}
       onClick={handleToggle}
@@ -48,7 +48,7 @@ export function Switch({
           className={cn(
             "block h-6 w-11 rounded-full transition duration-150 ease-linear",
             disabled
-              ? "pointer-events-none bg-gray-100 dark:bg-gray-800"
+              ? "pointer-events-none bg-white dark:bg-gray-800"
               : backgroundColors[color],
           )}
         />

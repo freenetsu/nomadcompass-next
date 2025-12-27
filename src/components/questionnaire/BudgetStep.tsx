@@ -18,7 +18,7 @@ export function BudgetStep() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Votre budget
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
           Donnez-nous une idée de vos moyens financiers pour trouver les
           destinations adaptées.
         </p>
@@ -61,7 +61,6 @@ export function BudgetStep() {
             id="revenus"
             {...register("budget.revenus")}
             error={!!errors.budget?.revenus}
-            hint={errors.budget?.revenus?.message}
             options={[
               { value: "salarie", label: "Salarié" },
               { value: "freelance", label: "Freelance / Indépendant" },

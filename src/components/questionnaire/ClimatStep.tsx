@@ -17,7 +17,7 @@ export function ClimatStep() {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           Climat préféré
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
           Le climat est un facteur important pour votre bien-être au quotidien.
         </p>
       </div>
@@ -29,7 +29,6 @@ export function ClimatStep() {
             id="temperaturePreferee"
             {...register("climat.temperaturePreferee")}
             error={!!errors.climat?.temperaturePreferee}
-            hint={errors.climat?.temperaturePreferee?.message}
             options={[
               { value: "froid", label: "Froid (< 15°C)" },
               { value: "tempere", label: "Tempéré (15-25°C)" },
@@ -46,7 +45,6 @@ export function ClimatStep() {
             id="saisonPreferee"
             {...register("climat.saisonPreferee")}
             error={!!errors.climat?.saisonPreferee}
-            hint={errors.climat?.saisonPreferee?.message}
             options={[
               { value: "printemps", label: "Printemps" },
               { value: "ete", label: "Été" },
@@ -63,7 +61,6 @@ export function ClimatStep() {
             id="precipitations"
             {...register("climat.precipitations")}
             error={!!errors.climat?.precipitations}
-            hint={errors.climat?.precipitations?.message}
             options={[
               { value: "peu", label: "Peu de pluie" },
               { value: "moyen", label: "Pluie modérée" },

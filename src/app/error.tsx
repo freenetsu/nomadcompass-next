@@ -23,7 +23,7 @@ export default function Error({
         <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
           Une erreur est survenue
         </h2>
-        <p className="mt-2 text-gray-600 dark:text-gray-400">
+        <p className="mt-2 text-gray-600 dark:text-gray-300">
           {error.message || "Une erreur inattendue s'est produite"}
         </p>
         {error.digest && (

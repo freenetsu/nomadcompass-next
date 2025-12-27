@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useForm, FormProvider } from "react-hook-form";
@@ -55,11 +55,12 @@ const steps = [
 export default function QuestionnairePage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
 
   const methods = useForm<QuestionnaireFormData>({
-    resolver: zodResolver(questionnaireSchema),
+    resolver: zodResolver(questionnaireSchema) as any,
     mode: "onChange",
     defaultValues: {
       profil: {
@@ -94,13 +95,40 @@ export default function QuestionnairePage() {
   const { trigger, handleSubmit } = methods;
   const StepComponent = steps[currentStep].component;
 
+  // Debug: tracker les changements d'étape et réinitialiser canSubmit
+  useEffect(() => {
+    console.log(`📍 currentStep a changé: ${currentStep} (${steps[currentStep]?.title || 'inconnu'})`);
+    // Réinitialiser le flag de soumission à chaque changement d'étape
+    setCanSubmit(false);
+  }, [currentStep]);
+
+  // Debug: tracker toute tentative de navigation
+  useEffect(() => {
+    const originalPush = router.push;
+    router.push = function(...args) {
+      console.log(`🚨 router.push appelé avec:`, args);
+      console.trace('Call stack:');
+      return originalPush.apply(this, args);
+    };
+
+    return () => {
+      router.push = originalPush;
+    };
+  }, [router]);
+
   const handleNext = async () => {
+    console.log(`🔹 handleNext appelé - Étape actuelle: ${currentStep} (${steps[currentStep].title})`);
     const field = steps[currentStep].field;
     const isValid = await trigger(field);
 
+    console.log(`🔹 Validation: ${isValid ? '✅ Valide' : '❌ Invalide'}`);
+
     if (isValid) {
       if (currentStep < steps.length - 1) {
+        console.log(`🔹 Passage à l'étape ${currentStep + 1} (${steps[currentStep + 1].title})`);
         setCurrentStep(currentStep + 1);
+      } else {
+        console.log(`🔹 Dernière étape atteinte - ne devrait pas arriver ici`);
       }
     }
   };
@@ -112,7 +140,25 @@ export default function QuestionnairePage() {
   };
 
   const onSubmit = async (data: QuestionnaireFormData) => {
+    console.log(`🎯 onSubmit appelé - currentStep: ${currentStep}, canSubmit: ${canSubmit}`);
+
+    // Empêcher la soumission si on n'a pas explicitement cliqué sur le bouton
+    if (!canSubmit) {
+      console.warn(`⚠️ Tentative de soumission automatique - BLOQUÉE (canSubmit = false)`);
+      return;
+    }
+
+    // Empêcher la soumission si on n'est pas à la dernière étape
+    if (currentStep < steps.length - 1) {
+      console.warn(`⚠️ Tentative de soumission avant la dernière étape - bloquée (étape ${currentStep}/${steps.length - 1})`);
+      setCanSubmit(false);
+      return;
+    }
+
+    console.log(`✅ Soumission autorisée - dernière étape atteinte et canSubmit = true`);
+
     if (!session?.user) {
+      console.log(`❌ Pas de session - redirection vers signin`);
       router.push("/auth/signin?callbackUrl=/questionnaire");
       return;
     }
@@ -120,6 +166,7 @@ export default function QuestionnairePage() {
     setIsSubmitting(true);
 
     try {
+      console.log(`📤 Envoi du questionnaire...`);
       const response = await fetch("/api/questionnaire", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -130,22 +177,24 @@ export default function QuestionnairePage() {
         throw new Error("Failed to submit questionnaire");
       }
 
+      console.log(`✅ Questionnaire envoyé - redirection vers dashboard`);
       router.push("/dashboard");
     } catch (error) {
       console.error("Error submitting questionnaire:", error);
       alert("Une erreur est survenue lors de l'envoi du questionnaire");
     } finally {
       setIsSubmitting(false);
+      setCanSubmit(false); // Réinitialiser après la soumission
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <Link
             href="/"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
           >
             <ArrowLeft className="h-5 w-5" />
             Retour
@@ -180,7 +229,7 @@ export default function QuestionnairePage() {
                     className={`mt-2 hidden text-xs sm:block ${
                       index <= currentStep
                         ? "font-medium text-brand-500"
-                        : "text-gray-500 dark:text-gray-400"
+                        : "text-gray-500 dark:text-gray-300"
                     }`}
                   >
                     {step.title}
@@ -202,7 +251,15 @@ export default function QuestionnairePage() {
 
         {/* Form */}
         <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            onKeyDown={(e) => {
+              // Empêcher la soumission du formulaire avec la touche Enter
+              if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
+                e.preventDefault();
+              }
+            }}
+          >
             <div className="rounded-2xl bg-white p-8 shadow-theme-sm dark:bg-gray-800">
               <StepComponent />
 
@@ -223,7 +280,14 @@ export default function QuestionnairePage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 ) : (
-                  <Button type="submit" isLoading={isSubmitting}>
+                  <Button
+                    type="submit"
+                    isLoading={isSubmitting}
+                    onClick={() => {
+                      console.log("🔘 Bouton 'Voir les résultats' cliqué - activation de canSubmit");
+                      setCanSubmit(true);
+                    }}
+                  >
                     {isSubmitting ? "Envoi..." : "Voir les résultats"}
                   </Button>
                 )}
