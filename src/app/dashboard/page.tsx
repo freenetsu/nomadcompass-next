@@ -64,7 +64,7 @@ export default function DashboardPage() {
               </Link>
             ) : (
               <Link
-                href="/"
+                href="/home"
                 className="mt-6 inline-block rounded-lg bg-brand-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-600"
               >
                 Retour à l&apos;accueil
@@ -113,7 +113,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
-                href="/"
+                href="/home"
                 className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
               >
                 <ArrowLeft className="h-5 w-5" />

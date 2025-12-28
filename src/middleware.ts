@@ -9,8 +9,22 @@ import type { NextRequest } from "next/server";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protection des routes authentifiées
-  if (pathname.startsWith("/admin") || pathname.startsWith("/dashboard")) {
+  // Liste des routes protégées
+  const protectedRoutes = [
+    "/admin",
+    "/dashboard",
+    "/home",
+    "/questionnaire",
+    "/favorites",
+    "/compare",
+    "/countries",
+    "/country"
+  ];
+
+  // Vérifier si la route actuelle est protégée
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  if (isProtectedRoute) {
     const session = await auth();
 
     // Pas connecté : redirection vers signin
@@ -30,5 +44,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*"],
+  matcher: [
+    "/admin/:path*",
+    "/dashboard/:path*",
+    "/home/:path*",
+    "/questionnaire/:path*",
+    "/favorites/:path*",
+    "/compare/:path*",
+    "/countries/:path*",
+    "/country/:path*"
+  ],
 };
