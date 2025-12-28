@@ -6,21 +6,28 @@ import {
   Database,
   BarChart3,
   MapPin,
-  Brain
+  Brain,
+  Plane,
+  Map,
+  Users
 } from "lucide-react";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-ocean-50 to-sunshine-50">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm dark:border-gray-800 dark:bg-gray-900/80">
+      <header className="sticky top-0 z-50 border-b-2 border-brand-200 bg-white/90 backdrop-blur-md shadow-lg">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <Link
             href="/"
-            className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-transform hover:scale-105 dark:text-white sm:text-2xl"
+            className="flex items-center gap-2 text-xl font-bold text-gray-900 transition-transform hover:scale-110 sm:text-2xl"
           >
-            <Globe className="h-6 w-6 text-brand-500 sm:h-7 sm:w-7" />
-            NomadCompass
+            <div className="rounded-full bg-gradient-to-br from-brand-500 to-ocean-500 p-2">
+              <Globe className="h-6 w-6 text-white sm:h-7 sm:w-7" />
+            </div>
+            <span className="bg-gradient-to-r from-brand-600 to-ocean-600 bg-clip-text text-transparent">
+              NomadCompass
+            </span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/auth/signin">
@@ -33,164 +40,201 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="mx-auto max-w-7xl">
+      <section className="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 h-64 w-64 rounded-full bg-brand-300 opacity-20 blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 h-96 w-96 rounded-full bg-ocean-300 opacity-20 blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
+
+        <div className="relative mx-auto max-w-7xl">
           <div className="text-center">
             {/* Badge */}
-            <div className="mb-6 inline-flex">
-              <Badge color="primary" className="text-sm">
-                <Sparkles className="mr-1 h-3.5 w-3.5" />
-                Propulsé par Claude AI
+            <div className="mb-8 inline-flex animate-bounce-slow">
+              <Badge color="primary" className="text-base px-4 py-2">
+                <Sparkles className="mr-2 h-4 w-4" />
+                Propulsé par l&apos;Intelligence Artificielle
               </Badge>
             </div>
 
             {/* Titre principal */}
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl">
-              Trouvez Votre Pays Idéal{" "}
-              <span className="block bg-gradient-to-r from-brand-500 to-brand-700 bg-clip-text text-transparent">
-                en 2 Minutes
+            <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+              Trouvez Votre Paradis{" "}
+              <span className="block bg-gradient-to-r from-brand-500 via-ocean-500 to-adventure-500 bg-clip-text text-transparent mt-2">
+                en 2 Minutes Chrono !
               </span>
             </h1>
 
             {/* Sous-titre */}
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-300 sm:text-xl">
-              Analyse IA personnalisée basée sur votre profil pour une expatriation réussie
+            <p className="mx-auto mt-8 max-w-2xl text-xl text-gray-700 sm:text-2xl font-medium">
+              🌍 L&apos;IA qui transforme vos rêves d&apos;expatriation en réalité
             </p>
 
             {/* CTA Buttons */}
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link href="/auth/signin" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full">
-                  Commencer Gratuitement
+                <Button size="lg" className="w-full text-lg px-8 py-4">
+                  <Plane className="mr-2 h-5 w-5" />
+                  Décoller Maintenant
                 </Button>
               </Link>
               <a href="#demo" className="w-full sm:w-auto">
-                <Button size="lg" variant="outline" className="w-full">
-                  Voir la Démo
+                <Button size="lg" variant="outline" className="w-full text-lg px-8 py-4">
+                  <Map className="mr-2 h-5 w-5" />
+                  Explorer la Carte
                 </Button>
               </a>
+            </div>
+
+            {/* Stats */}
+            <div className="mt-16 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+              <div className="text-center">
+                <div className="text-4xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
+                  25+
+                </div>
+                <div className="mt-2 text-sm text-gray-600 font-medium">Pays analysés</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold bg-gradient-to-r from-ocean-600 to-ocean-500 bg-clip-text text-transparent">
+                  100%
+                </div>
+                <div className="mt-2 text-sm text-gray-600 font-medium">Gratuit</div>
+              </div>
+              <div className="text-center">
+                <div className="text-4xl font-bold bg-gradient-to-r from-adventure-600 to-adventure-500 bg-clip-text text-transparent">
+                  2min
+                </div>
+                <div className="mt-2 text-sm text-gray-600 font-medium">Pour décider</div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section "Comment ça marche" */}
-      <section className="bg-gray-50 px-4 py-16 dark:bg-gray-800/50 sm:px-6 lg:px-8">
+      <section className="bg-white px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Comment ça marche ?
             </h2>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-              En 3 étapes simples, trouvez votre destination idéale
+            <p className="mt-4 text-xl text-gray-600">
+              3 étapes simples pour trouver votre destination de rêve
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             {/* Étape 1 */}
-            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-500/20">
-                <span className="text-2xl font-bold text-brand-600 dark:text-brand-400">01</span>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-brand-500 to-ocean-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+              <div className="relative rounded-2xl border-2 border-brand-200 bg-white p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 shadow-lg">
+                  <span className="text-3xl font-black text-white">1</span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  🎯 Remplissez votre profil
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Quelques questions sur vos envies, budget et style de vie
+                </p>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">
-                Remplissez votre profil
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Répondez à quelques questions sur vos préférences, budget et priorités de vie
-              </p>
             </div>
 
             {/* Étape 2 */}
-            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-500/20">
-                <span className="text-2xl font-bold text-brand-600 dark:text-brand-400">02</span>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-ocean-500 to-adventure-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+              <div className="relative rounded-2xl border-2 border-ocean-200 bg-white p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 shadow-lg">
+                  <span className="text-3xl font-black text-white">2</span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  🤖 L&apos;IA analyse
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Notre intelligence artificielle compare 25+ destinations
+                </p>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">
-                IA analyse vos besoins
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Notre intelligence artificielle analyse votre profil et compare plus de 10 pays
-              </p>
             </div>
 
             {/* Étape 3 */}
-            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] sm:p-8">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-100 dark:bg-brand-500/20">
-                <span className="text-2xl font-bold text-brand-600 dark:text-brand-400">03</span>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-adventure-500 to-sunshine-500 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-300"></div>
+              <div className="relative rounded-2xl border-2 border-adventure-200 bg-white p-8 sm:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-adventure-400 to-adventure-600 shadow-lg">
+                  <span className="text-3xl font-black text-white">3</span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  ✨ Recevez vos résultats
+                </h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  Un classement personnalisé avec analyses détaillées
+                </p>
               </div>
-              <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">
-                Recevez vos destinations
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Obtenez un classement personnalisé avec analyses détaillées pour chaque pays
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Section "Fonctionnalités" */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-ocean-50 to-adventure-50 px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+          <div className="mb-16 text-center">
+            <h2 className="text-4xl font-extrabold text-gray-900 sm:text-5xl">
               Pourquoi NomadCompass ?
             </h2>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
-              La plateforme la plus complète pour votre projet d&apos;expatriation
+            <p className="mt-4 text-xl text-gray-600">
+              La plateforme ultime pour les futurs nomades
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {/* Feature 1 */}
-            <div className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:scale-105 hover:shadow-lg dark:border-gray-800 dark:bg-white/[0.03]">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 transition-transform group-hover:scale-110 dark:bg-brand-500/15">
-                <Brain className="h-6 w-6 text-brand-500" />
+            <div className="group rounded-3xl border-2 border-brand-200 bg-white p-8 transition-all hover:scale-110 hover:shadow-2xl hover:border-brand-400">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 transition-transform group-hover:rotate-12 shadow-lg">
+                <Brain className="h-8 w-8 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                Analyse IA Personnalisée
+              <h3 className="mb-3 text-xl font-bold text-gray-900">
+                IA Ultra-Précise
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Claude AI analyse votre profil en profondeur pour des recommandations ultra-précises
+              <p className="text-gray-600 leading-relaxed">
+                Claude AI analyse en profondeur votre profil unique
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:scale-105 hover:shadow-lg dark:border-gray-800 dark:bg-white/[0.03]">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-success-50 transition-transform group-hover:scale-110 dark:bg-success-500/15">
-                <Database className="h-6 w-6 text-success-500" />
+            <div className="group rounded-3xl border-2 border-ocean-200 bg-white p-8 transition-all hover:scale-110 hover:shadow-2xl hover:border-ocean-400">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-400 to-ocean-600 transition-transform group-hover:rotate-12 shadow-lg">
+                <Database className="h-8 w-8 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                Données Réelles
+              <h3 className="mb-3 text-xl font-bold text-gray-900">
+                Données Live
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Scraping quotidien depuis Numbeo et sites officiels pour des infos à jour
+              <p className="text-gray-600 leading-relaxed">
+                Informations actualisées quotidiennement
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:scale-105 hover:shadow-lg dark:border-gray-800 dark:bg-white/[0.03]">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50 transition-transform group-hover:scale-110 dark:bg-orange-500/15">
-                <BarChart3 className="h-6 w-6 text-orange-500" />
+            <div className="group rounded-3xl border-2 border-adventure-200 bg-white p-8 transition-all hover:scale-110 hover:shadow-2xl hover:border-adventure-400">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-adventure-400 to-adventure-600 transition-transform group-hover:rotate-12 shadow-lg">
+                <BarChart3 className="h-8 w-8 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                Dashboard Interactif
+              <h3 className="mb-3 text-xl font-bold text-gray-900">
+                Visuels Clairs
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Visualisez vos résultats avec des graphiques clairs et comparaisons détaillées
+              <p className="text-gray-600 leading-relaxed">
+                Graphiques et comparaisons faciles à comprendre
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all hover:scale-105 hover:shadow-lg dark:border-gray-800 dark:bg-white/[0.03]">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-light-50 transition-transform group-hover:scale-110 dark:bg-blue-light-500/15">
-                <MapPin className="h-6 w-6 text-blue-light-500" />
+            <div className="group rounded-3xl border-2 border-sunshine-200 bg-white p-8 transition-all hover:scale-110 hover:shadow-2xl hover:border-sunshine-400">
+              <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-sunshine-400 to-sunshine-600 transition-transform group-hover:rotate-12 shadow-lg">
+                <MapPin className="h-8 w-8 text-white" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                10+ Pays Comparés
+              <h3 className="mb-3 text-xl font-bold text-gray-900">
+                25+ Destinations
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                Portugal, Thaïlande, Mexique, Espagne, Bali et bien d&apos;autres destinations
+              <p className="text-gray-600 leading-relaxed">
+                Portugal, Bali, Mexique, et bien plus !
               </p>
             </div>
           </div>
@@ -198,22 +242,26 @@ export default function LandingPage() {
       </section>
 
       {/* Section CTA Final */}
-      <section className="bg-gradient-to-r from-brand-600 to-brand-700 px-4 py-16 dark:from-brand-700 dark:to-brand-800 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Prêt à trouver votre destination idéale ?
+      <section className="relative overflow-hidden bg-gradient-to-r from-brand-500 via-ocean-500 to-adventure-500 px-4 py-20 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzBoLTJ2Mmgydi0yem0wLTJoLTJ2Mmgydi0yem0tMiAyaC0ydjJoMnYtMnptMC0yaC0ydjJoMnYtMnoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+
+        <div className="relative mx-auto max-w-4xl text-center">
+          <Users className="h-16 w-16 mx-auto mb-6 text-white animate-bounce-slow" />
+          <h2 className="text-4xl font-extrabold text-white sm:text-5xl">
+            Prêt pour l&apos;aventure ? 🚀
           </h2>
-          <p className="mt-4 text-lg text-brand-100">
-            Rejoignez des centaines d&apos;expatriés satisfaits qui ont trouvé leur pays idéal
+          <p className="mt-6 text-xl text-white/90 font-medium">
+            Rejoignez des milliers d&apos;aventuriers qui ont trouvé leur destination idéale
           </p>
-          <div className="mt-8">
+          <div className="mt-10">
             <Link href="/auth/signin">
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-white bg-white text-brand-600 hover:bg-brand-50"
+                className="border-4 border-white bg-white text-brand-600 hover:bg-brand-50 text-xl px-12 py-6 shadow-2xl hover:shadow-white/50"
               >
-                Commencer Mon Analyse Gratuite
+                <Sparkles className="mr-2 h-6 w-6" />
+                C&apos;est Parti !
               </Button>
             </Link>
           </div>
@@ -221,34 +269,38 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white py-12 dark:border-gray-800 dark:bg-gray-900">
+      <footer className="border-t-2 border-brand-200 bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
             {/* Colonne 1 - Logo et description */}
             <div className="md:col-span-2">
               <Link
                 href="/"
-                className="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white"
+                className="flex items-center gap-2 text-2xl font-bold text-gray-900"
               >
-                <Globe className="h-6 w-6 text-brand-500" />
-                NomadCompass
+                <div className="rounded-full bg-gradient-to-br from-brand-500 to-ocean-500 p-2">
+                  <Globe className="h-7 w-7 text-white" />
+                </div>
+                <span className="bg-gradient-to-r from-brand-600 to-ocean-600 bg-clip-text text-transparent">
+                  NomadCompass
+                </span>
               </Link>
-              <p className="mt-4 text-sm text-gray-600 dark:text-gray-300">
-                Votre guide intelligent d&apos;expatriation propulsé par l&apos;IA.
-                Trouvez le pays parfait selon votre profil en quelques minutes.
+              <p className="mt-6 text-base text-gray-600 leading-relaxed">
+                Votre guide intelligent pour une expatriation réussie.
+                Propulsé par l&apos;Intelligence Artificielle Claude.
               </p>
             </div>
 
             {/* Colonne 2 - Liens */}
             <div>
-              <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
-                Liens
+              <h3 className="mb-6 text-sm font-bold text-gray-900 uppercase tracking-wider">
+                Navigation
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <li>
                   <Link
                     href="/auth/signin"
-                    className="text-sm text-gray-600 hover:text-brand-600 dark:text-gray-300 dark:hover:text-brand-400"
+                    className="text-gray-600 hover:text-brand-600 transition-colors font-medium"
                   >
                     Se connecter
                   </Link>
@@ -256,7 +308,7 @@ export default function LandingPage() {
                 <li>
                   <Link
                     href="/auth/signup"
-                    className="text-sm text-gray-600 hover:text-brand-600 dark:text-gray-300 dark:hover:text-brand-400"
+                    className="text-gray-600 hover:text-brand-600 transition-colors font-medium"
                   >
                     Créer un compte
                   </Link>
@@ -266,14 +318,14 @@ export default function LandingPage() {
 
             {/* Colonne 3 - Légal */}
             <div>
-              <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
+              <h3 className="mb-6 text-sm font-bold text-gray-900 uppercase tracking-wider">
                 Légal
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-4">
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-600 hover:text-brand-600 dark:text-gray-300 dark:hover:text-brand-400"
+                    className="text-gray-600 hover:text-brand-600 transition-colors font-medium"
                   >
                     Mentions légales
                   </a>
@@ -281,7 +333,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-600 hover:text-brand-600 dark:text-gray-300 dark:hover:text-brand-400"
+                    className="text-gray-600 hover:text-brand-600 transition-colors font-medium"
                   >
                     Confidentialité
                   </a>
@@ -289,7 +341,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="#"
-                    className="text-sm text-gray-600 hover:text-brand-600 dark:text-gray-300 dark:hover:text-brand-400"
+                    className="text-gray-600 hover:text-brand-600 transition-colors font-medium"
                   >
                     CGU
                   </a>
@@ -299,9 +351,9 @@ export default function LandingPage() {
           </div>
 
           {/* Copyright */}
-          <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
-            <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-              © 2024 NomadCompass. Propulsé par Claude AI.
+          <div className="mt-12 border-t-2 border-gray-100 pt-8">
+            <p className="text-center text-gray-500 font-medium">
+              © 2024 NomadCompass · Propulsé par Claude AI · Made with ❤️ pour les voyageurs
             </p>
           </div>
         </div>

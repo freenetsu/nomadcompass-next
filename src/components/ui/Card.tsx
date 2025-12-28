@@ -13,15 +13,15 @@ export function Card({
 }: CardProps) {
   return (
     <div
-      className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
+      className={`rounded-2xl border-2 border-gray-200 bg-white shadow-md hover:shadow-xl transition-shadow duration-300 ${className}`}
     >
       {title && (
-        <div className="px-6 py-5">
-          <h3 className="text-base font-medium text-gray-800 dark:text-white/90">
+        <div className="px-6 py-5 bg-gradient-to-r from-brand-50 to-ocean-50">
+          <h3 className="text-base font-semibold text-gray-800">
             {title}
           </h3>
           {desc && (
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-300">
+            <p className="mt-1 text-sm text-gray-600">
               {desc}
             </p>
           )}
@@ -29,7 +29,7 @@ export function Card({
       )}
 
       <div
-        className={`${title ? "border-t border-gray-100 dark:border-gray-800" : ""} p-4 sm:p-6`}
+        className={`${title ? "border-t-2 border-gray-100" : ""} p-4 sm:p-6`}
       >
         {children}
       </div>

@@ -28,26 +28,22 @@ const sizeStyles = {
 
 const variants = {
   light: {
-    primary:
-      "bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300",
-    success:
-      "bg-success-100 text-success-700 dark:bg-success-900/40 dark:text-success-300",
-    error:
-      "bg-error-100 text-error-700 dark:bg-error-900/40 dark:text-error-300",
-    warning:
-      "bg-warning-100 text-warning-700 dark:bg-warning-900/40 dark:text-warning-300",
-    info: "bg-blue-light-100 text-blue-light-700 dark:bg-blue-light-900/40 dark:text-blue-light-300",
-    light: "bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
-    dark: "bg-gray-700 text-gray-100 dark:bg-gray-300 dark:text-gray-900",
+    primary: "bg-brand-100 text-brand-700",
+    success: "bg-success-100 text-success-700",
+    error: "bg-error-100 text-error-700",
+    warning: "bg-sunshine-100 text-sunshine-800",
+    info: "bg-ocean-100 text-ocean-700",
+    light: "bg-gray-200 text-gray-800",
+    dark: "bg-gray-700 text-white",
   },
   solid: {
-    primary: "bg-brand-600 text-white dark:bg-brand-500",
-    success: "bg-success-600 text-white dark:bg-success-500",
-    error: "bg-error-600 text-white dark:bg-error-500",
-    warning: "bg-warning-600 text-white dark:bg-warning-500",
-    info: "bg-blue-light-600 text-white dark:bg-blue-light-500",
-    light: "bg-gray-500 text-white dark:bg-gray-400",
-    dark: "bg-gray-800 text-white dark:bg-gray-700",
+    primary: "bg-brand-500 text-white shadow-md",
+    success: "bg-success-600 text-white shadow-md",
+    error: "bg-error-600 text-white shadow-md",
+    warning: "bg-sunshine-500 text-gray-900 shadow-md",
+    info: "bg-ocean-500 text-white shadow-md",
+    light: "bg-gray-500 text-white",
+    dark: "bg-gray-800 text-white",
   },
 };
 

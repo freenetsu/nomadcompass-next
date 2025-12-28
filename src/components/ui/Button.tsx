@@ -20,13 +20,13 @@ const sizeClasses = {
 
 const variantClasses = {
   primary:
-    "bg-brand-600 text-white shadow-theme-xs hover:bg-brand-700 active:bg-brand-800 disabled:bg-brand-400 dark:bg-brand-500 dark:hover:bg-brand-600",
+    "bg-brand-500 text-white shadow-lg hover:bg-brand-600 hover:shadow-xl active:bg-brand-700 disabled:bg-brand-300 transition-all duration-200 hover:scale-105",
   outline:
-    "bg-white text-gray-800 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 active:bg-white dark:bg-gray-800 dark:text-gray-100 dark:ring-gray-600 dark:hover:bg-gray-700 dark:active:bg-gray-600",
+    "bg-white text-brand-600 ring-2 ring-inset ring-brand-500 hover:bg-brand-50 active:bg-brand-100 transition-all duration-200",
   ghost:
-    "bg-transparent text-gray-800 hover:bg-gray-100 active:bg-gray-200 dark:text-gray-200 dark:hover:bg-gray-800 dark:active:bg-gray-700",
+    "bg-transparent text-gray-700 hover:bg-brand-50 active:bg-brand-100 transition-all duration-200",
   danger:
-    "bg-error-600 text-white shadow-theme-xs hover:bg-error-700 active:bg-error-800 disabled:bg-error-400",
+    "bg-error-600 text-white shadow-lg hover:bg-error-700 active:bg-error-800 disabled:bg-error-400 transition-all duration-200",
 };
 
 export function Button({
