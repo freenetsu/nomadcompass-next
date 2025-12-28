@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button, Badge } from "@/components/ui";
 import {
   Globe,
@@ -11,13 +12,6 @@ import {
   Map,
   Users
 } from "lucide-react";
-import {
-  TravelerIllustration,
-  WorldMapIllustration,
-  PlanningIllustration,
-  AIAnalysisIllustration,
-  CelebrationIllustration
-} from "@/components/illustrations/TravelIllustration";
 
 export default function LandingPage() {
   return (
@@ -115,8 +109,15 @@ export default function LandingPage() {
 
             {/* Right: Illustration */}
             <div className="flex items-center justify-center">
-              <div className="w-full max-w-lg animate-float">
-                <TravelerIllustration />
+              <div className="w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl border-4 border-coral-400 animate-float">
+                <Image
+                  src="/illustration/onePiecePaysage.jpeg"
+                  alt="Sunset Adventure"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                  priority
+                />
               </div>
             </div>
           </div>
@@ -140,10 +141,14 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-brand-500 to-ocean-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-brand-400 bg-white p-10 shadow-2xl hover:shadow-brand-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 w-full h-48 flex items-center justify-center">
-                  <div className="w-40 h-40 animate-float">
-                    <PlanningIllustration />
-                  </div>
+                <div className="mb-8 w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl">
+                  <Image
+                    src="/illustration/montFuji.jpeg"
+                    alt="Planification"
+                    width={300}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   🎯 Votre Profil
@@ -158,10 +163,14 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-ocean-500 to-adventure-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-ocean-400 bg-white p-10 shadow-2xl hover:shadow-ocean-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 w-full h-48 flex items-center justify-center">
-                  <div className="w-40 h-40 animate-bounce-slow">
-                    <AIAnalysisIllustration />
-                  </div>
+                <div className="mb-8 w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl">
+                  <Image
+                    src="/illustration/onePiecePaysage.jpeg"
+                    alt="IA Analysis"
+                    width={300}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   🤖 IA Turbo
@@ -176,10 +185,14 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-adventure-500 to-sunshine-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-adventure-400 bg-white p-10 shadow-2xl hover:shadow-adventure-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 w-full h-48 flex items-center justify-center">
-                  <div className="w-40 h-40 animate-float" style={{animationDelay: '1s'}}>
-                    <CelebrationIllustration />
-                  </div>
+                <div className="mb-8 w-full h-48 flex items-center justify-center overflow-hidden rounded-2xl">
+                  <Image
+                    src="/illustration/montFuji.jpeg"
+                    alt="Résultats"
+                    width={300}
+                    height={200}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   ✨ Résultats !
@@ -261,8 +274,14 @@ export default function LandingPage() {
 
           {/* Illustration centrale */}
           <div className="mt-20 flex justify-center">
-            <div className="w-full max-w-2xl">
-              <WorldMapIllustration />
+            <div className="w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border-4 border-ocean-400">
+              <Image
+                src="/illustration/wordlMap.jpeg"
+                alt="World Map"
+                width={800}
+                height={400}
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
