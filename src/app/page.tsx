@@ -11,7 +11,13 @@ import {
   Map,
   Users
 } from "lucide-react";
-import { TravelerIllustration, WorldMapIllustration } from "@/components/illustrations/TravelIllustration";
+import {
+  TravelerIllustration,
+  WorldMapIllustration,
+  PlanningIllustration,
+  AIAnalysisIllustration,
+  CelebrationIllustration
+} from "@/components/illustrations/TravelIllustration";
 
 export default function LandingPage() {
   return (
@@ -59,9 +65,9 @@ export default function LandingPage() {
               </div>
 
               <h1 className="text-5xl font-black tracking-tight text-gray-900 sm:text-6xl lg:text-7xl leading-tight">
-                Trouvez Votre{" "}
+                Découvrez Votre{" "}
                 <span className="block bg-gradient-to-r from-brand-600 via-ocean-600 to-adventure-600 bg-clip-text text-transparent mt-2">
-                  Paradis en 2min !
+                  Destination de Rêve en 2min !
                 </span>
               </h1>
 
@@ -134,8 +140,10 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-brand-500 to-ocean-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-brand-400 bg-white p-10 shadow-2xl hover:shadow-brand-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 shadow-xl">
-                  <span className="text-4xl font-black text-white">1</span>
+                <div className="mb-8 w-full h-48 flex items-center justify-center">
+                  <div className="w-40 h-40 animate-float">
+                    <PlanningIllustration />
+                  </div>
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   🎯 Votre Profil
@@ -150,8 +158,10 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-ocean-500 to-adventure-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-ocean-400 bg-white p-10 shadow-2xl hover:shadow-ocean-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-ocean-500 to-ocean-700 shadow-xl">
-                  <span className="text-4xl font-black text-white">2</span>
+                <div className="mb-8 w-full h-48 flex items-center justify-center">
+                  <div className="w-40 h-40 animate-bounce-slow">
+                    <AIAnalysisIllustration />
+                  </div>
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   🤖 IA Turbo
@@ -166,8 +176,10 @@ export default function LandingPage() {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-adventure-500 to-sunshine-500 rounded-3xl blur-xl opacity-50 group-hover:opacity-100 transition duration-300"></div>
               <div className="relative rounded-3xl border-4 border-adventure-400 bg-white p-10 shadow-2xl hover:shadow-adventure-300 transition-all duration-300 hover:scale-105">
-                <div className="mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-adventure-500 to-adventure-700 shadow-xl">
-                  <span className="text-4xl font-black text-white">3</span>
+                <div className="mb-8 w-full h-48 flex items-center justify-center">
+                  <div className="w-40 h-40 animate-float" style={{animationDelay: '1s'}}>
+                    <CelebrationIllustration />
+                  </div>
                 </div>
                 <h3 className="mb-5 text-3xl font-black text-gray-900">
                   ✨ Résultats !
