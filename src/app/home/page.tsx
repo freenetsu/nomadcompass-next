@@ -1,7 +1,6 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/components/ui";
 import { UserDropdown } from "@/components/auth/UserDropdown";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Globe, Sparkles, BarChart3 } from "lucide-react";

@@ -6,9 +6,7 @@ import {
   Database,
   BarChart3,
   MapPin,
-  UserCircle,
-  Brain,
-  LineChart
+  Brain
 } from "lucide-react";
 
 export default function LandingPage() {

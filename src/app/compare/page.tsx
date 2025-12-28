@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, X, Search } from "lucide-react";
-import { Button, Input, Badge, Select } from "@/components/ui";
+import { Input, Badge } from "@/components/ui";
 import { Card } from "@/components/ui/Card";
 
 interface Country {
@@ -57,7 +57,7 @@ export default function ComparePage() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link
-              href="/dashboard"
+              href="/home"
               className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
             >
               <ArrowLeft className="h-5 w-5" />
@@ -79,6 +79,27 @@ export default function ComparePage() {
           className="mb-8"
         >
           <div className="space-y-4">
+            <div className="mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                Pays disponibles pour comparaison :
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {MOCK_COUNTRIES.filter(
+                  (country) => !selectedCountries.find((c) => c.id === country.id)
+                ).map((country) => (
+                  <button
+                    key={country.id}
+                    onClick={() => addCountry(country)}
+                    disabled={selectedCountries.length >= 3}
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-full transition-colors hover:bg-brand-100 hover:text-brand-700 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-brand-500/20 dark:hover:text-brand-400"
+                  >
+                    <span>{country.flag}</span>
+                    <span>{country.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="relative">
               <Input
                 placeholder="Rechercher un pays..."
