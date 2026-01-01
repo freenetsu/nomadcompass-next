@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { Search, Filter, ArrowUpDown, Globe } from "lucide-react";
+import { Search, ArrowUpDown, Globe } from "lucide-react";
 import { Input, Select, Badge } from "@/components/ui";
 import { Card } from "@/components/ui/Card";
 
@@ -105,7 +105,7 @@ export default function CountriesPage() {
   ];
 
   const filteredAndSortedCountries = useMemo(() => {
-    let result = MOCK_COUNTRIES.filter((country) => {
+    const result = MOCK_COUNTRIES.filter((country) => {
       const matchesSearch = country.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -132,21 +132,21 @@ export default function CountriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="min-h-screen bg-ocean-50">
+      <header className="border-b border-ocean-200 bg-white shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold text-gray-900">
                 Tous les pays
               </h1>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-sm text-gray-900">
                 {filteredAndSortedCountries.length} pays disponibles
               </p>
             </div>
             <Link
               href="/dashboard"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 hover:scale-105 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-lg border border-ocean-200 px-4 py-2 text-sm font-medium text-gray-900 transition-all hover:bg-ocean-50"
             >
               Dashboard
             </Link>
@@ -203,18 +203,18 @@ export default function CountriesPage() {
               <Link
                 key={country.id}
                 href={`/countries/${country.id}`}
-                className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:scale-105 hover:shadow-lg dark:border-gray-800 dark:bg-white/[0.03]"
+                className="group rounded-xl border border-ocean-200 bg-white p-5 transition-all hover:shadow-lg"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-4xl transition-transform group-hover:scale-110">
+                    <span className="text-4xl">
                       {country.flag}
                     </span>
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">
+                      <h3 className="font-semibold text-gray-900">
                         {country.name}
                       </h3>
-                      <p className="text-xs text-gray-500 dark:text-gray-300">
+                      <p className="text-xs text-gray-900">
                         {country.continent}
                       </p>
                     </div>
@@ -223,7 +223,7 @@ export default function CountriesPage() {
 
                 <div className="mt-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-300">
+                    <span className="text-xs text-gray-900">
                       Coût de vie
                     </span>
                     <Badge
@@ -240,7 +240,7 @@ export default function CountriesPage() {
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-300">
+                    <span className="text-xs text-gray-900">
                       Sécurité
                     </span>
                     <Badge
@@ -257,10 +257,10 @@ export default function CountriesPage() {
                     </Badge>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-600 dark:text-gray-300">
+                    <span className="text-xs text-gray-900">
                       Climat
                     </span>
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                    <span className="text-xs font-medium text-gray-900">
                       {country.climate}
                     </span>
                   </div>
@@ -269,12 +269,12 @@ export default function CountriesPage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center dark:border-gray-800 dark:bg-white/[0.03]">
+          <div className="rounded-xl border border-ocean-200 bg-white p-12 text-center shadow-sm">
             <Globe className="mx-auto h-16 w-16 text-gray-400" />
-            <h2 className="mt-4 text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="mt-4 text-xl font-semibold text-gray-900">
               Aucun pays trouvé
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-gray-900">
               Essayez de modifier vos filtres de recherche
             </p>
           </div>

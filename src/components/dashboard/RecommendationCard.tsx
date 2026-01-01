@@ -41,23 +41,23 @@ export function RecommendationCard({
   };
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-theme-sm transition-all hover:shadow-theme-md dark:border-gray-700 dark:bg-gray-800/80">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-theme-sm transition-all hover:shadow-theme-md">
       {/* Header avec drapeau et nom */}
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-gray-200 bg-white text-3xl dark:border-gray-600 dark:bg-gray-700">
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-gray-200 bg-white text-3xl">
             {flag}
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h3 className="text-lg font-bold text-gray-900">
                 {countryName}
               </h3>
               <Badge color="light" size="sm">
                 #{rank}
               </Badge>
             </div>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+            <p className="mt-1 text-sm text-gray-900">
               {matchPercentage}% de correspondance
             </p>
           </div>
@@ -69,7 +69,7 @@ export function RecommendationCard({
             <span className="text-2xl font-bold text-brand-500">
               {overallScore}
             </span>
-            <span className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="text-sm text-gray-900">
               /100
             </span>
           </div>
@@ -85,46 +85,46 @@ export function RecommendationCard({
 
       {/* Scores détaillés */}
       <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
-          <DollarSign className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3">
+          <DollarSign className="mb-1 h-4 w-4 text-gray-900" />
+          <span className="text-xs text-gray-900">
             Budget
           </span>
-          <span className="mt-1 font-semibold text-gray-900 dark:text-white">
+          <span className="mt-1 font-semibold text-gray-900">
             {scores.budget}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
-          <Thermometer className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3">
+          <Thermometer className="mb-1 h-4 w-4 text-gray-900" />
+          <span className="text-xs text-gray-900">
             Climat
           </span>
-          <span className="mt-1 font-semibold text-gray-900 dark:text-white">
+          <span className="mt-1 font-semibold text-gray-900">
             {scores.climate}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
-          <Shield className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3">
+          <Shield className="mb-1 h-4 w-4 text-gray-900" />
+          <span className="text-xs text-gray-900">
             Sécurité
           </span>
-          <span className="mt-1 font-semibold text-gray-900 dark:text-white">
+          <span className="mt-1 font-semibold text-gray-900">
             {scores.safety}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
-          <Heart className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3">
+          <Heart className="mb-1 h-4 w-4 text-gray-900" />
+          <span className="text-xs text-gray-900">
             Santé
           </span>
-          <span className="mt-1 font-semibold text-gray-900 dark:text-white">
+          <span className="mt-1 font-semibold text-gray-900">
             {scores.healthcare}
           </span>
         </div>
-        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-600 dark:bg-gray-700/60">
-          <TrendingUp className="mb-1 h-4 w-4 text-gray-700 dark:text-gray-300" />
-          <span className="text-xs text-gray-600 dark:text-gray-300">Vie</span>
-          <span className="mt-1 font-semibold text-gray-900 dark:text-white">
+        <div className="flex flex-col items-center rounded-lg border border-gray-200 bg-white p-3">
+          <TrendingUp className="mb-1 h-4 w-4 text-gray-900" />
+          <span className="text-xs text-gray-900">Vie</span>
+          <span className="mt-1 font-semibold text-gray-900">
             {scores.lifestyle}
           </span>
         </div>
@@ -132,14 +132,14 @@ export function RecommendationCard({
 
       {/* Résumé */}
       <div className="mt-6">
-        <p className="text-sm leading-relaxed text-gray-700 dark:text-gray-300">
+        <p className="text-sm leading-relaxed text-gray-900">
           {summary}
         </p>
       </div>
 
       {/* Points forts */}
       <div className="mt-6">
-        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+        <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
           <CheckCircle className="h-4 w-4 text-success-500" />
           Points forts
         </h4>
@@ -147,7 +147,7 @@ export function RecommendationCard({
           {strengths.map((strength, index) => (
             <li
               key={index}
-              className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+              className="flex items-start gap-2 text-sm text-gray-900"
             >
               <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-success-500"></span>
               <span>{strength}</span>
@@ -159,7 +159,7 @@ export function RecommendationCard({
       {/* Points faibles */}
       {weaknesses && weaknesses.length > 0 && (
         <div className="mt-6">
-          <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
+          <h4 className="mb-3 flex items-center gap-2 text-sm font-semibold text-gray-900">
             <AlertCircle className="h-4 w-4 text-warning-500" />
             Points d&apos;attention
           </h4>
@@ -167,7 +167,7 @@ export function RecommendationCard({
             {weaknesses.map((weakness, index) => (
               <li
                 key={index}
-                className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+                className="flex items-start gap-2 text-sm text-gray-900"
               >
                 <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-warning-500"></span>
                 <span>{weakness}</span>
@@ -187,7 +187,7 @@ export function RecommendationCard({
         </Link>
         <button
           type="button"
-          className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+          className="rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:border-gray-300 hover:bg-gray-50"
         >
           Comparer
         </button>

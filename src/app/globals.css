@@ -9,80 +9,73 @@
   --section-bg: #ffffff;
 }
 
-.dark {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --sidebar-bg: #1e293b;
-  --sidebar-text: #cbd5e1;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: "Outfit", sans-serif;
 
-  /* Brand colors - Sunset Adventure Palette */
-  --color-brand-25: #FFF8F0;
-  --color-brand-50: #FFEDD9;
-  --color-brand-100: #FFD9B3;
-  --color-brand-200: #FFC68C;
-  --color-brand-300: #FFB366;
-  --color-brand-400: #FFA566;
-  --color-brand-500: #FF8C42;
-  --color-brand-600: #E67A35;
-  --color-brand-700: #CC6A2E;
-  --color-brand-800: #B35826;
-  --color-brand-900: #99481F;
-  --color-brand-950: #803A18;
+  /* Brand colors - Kayak Orange */
+  --color-brand-25: #FFF8F5;
+  --color-brand-50: #FFF0E8;
+  --color-brand-100: #FFE0CC;
+  --color-brand-200: #FFC299;
+  --color-brand-300: #FFA366;
+  --color-brand-400: #FF8533;
+  --color-brand-500: #FF6A06;
+  --color-brand-600: #CC5505;
+  --color-brand-700: #994004;
+  --color-brand-800: #662B02;
+  --color-brand-900: #331501;
+  --color-brand-950: #1A0B01;
 
-  /* Ocean colors - Turquoise */
-  --color-ocean-25: #E8FFFE;
-  --color-ocean-50: #C7F9F6;
-  --color-ocean-100: #A0F3EE;
-  --color-ocean-200: #79EDE6;
-  --color-ocean-300: #52E7DE;
-  --color-ocean-400: #4ECDC4;
-  --color-ocean-500: #42B8AF;
-  --color-ocean-600: #38A399;
-  --color-ocean-700: #2E8E84;
-  --color-ocean-800: #24796F;
-  --color-ocean-900: #1A6459;
+  /* Ocean colors - Neutral Gray */
+  --color-ocean-25: #FAFAFA;
+  --color-ocean-50: #F5F5F5;
+  --color-ocean-100: #E5E5E5;
+  --color-ocean-200: #D4D4D4;
+  --color-ocean-300: #A3A3A3;
+  --color-ocean-400: #737373;
+  --color-ocean-500: #525252;
+  --color-ocean-600: #404040;
+  --color-ocean-700: #262626;
+  --color-ocean-800: #171717;
+  --color-ocean-900: #0A0A0A;
 
-  /* Adventure colors - Violet */
-  --color-adventure-50: #F5EBFB;
-  --color-adventure-100: #E6CCF5;
-  --color-adventure-200: #D7ADEF;
-  --color-adventure-300: #C88EE9;
-  --color-adventure-400: #B97AE1;
-  --color-adventure-500: #B565D8;
-  --color-adventure-600: #A254C7;
-  --color-adventure-700: #8F44B6;
-  --color-adventure-800: #7C33A5;
-  --color-adventure-900: #692294;
+  /* Adventure colors - Light Gray Backgrounds */
+  --color-adventure-50: #FAFAFA;
+  --color-adventure-100: #F4F4F5;
+  --color-adventure-200: #E4E4E7;
+  --color-adventure-300: #D4D4D8;
+  --color-adventure-400: #A1A1AA;
+  --color-adventure-500: #71717A;
+  --color-adventure-600: #52525B;
+  --color-adventure-700: #3F3F46;
+  --color-adventure-800: #27272A;
+  --color-adventure-900: #18181B;
 
-  /* Coral colors */
-  --color-coral-50: #FFEFEF;
-  --color-coral-100: #FFD4D4;
-  --color-coral-200: #FFB9B9;
-  --color-coral-300: #FF9E9E;
-  --color-coral-400: #FF8484;
-  --color-coral-500: #FF6B6B;
-  --color-coral-600: #E65C5C;
-  --color-coral-700: #CC4D4D;
-  --color-coral-800: #B33E3E;
-  --color-coral-900: #993030;
+  /* Coral colors - Accent Orange Light */
+  --color-coral-50: #FFF7ED;
+  --color-coral-100: #FFEDD5;
+  --color-coral-200: #FED7AA;
+  --color-coral-300: #FDBA74;
+  --color-coral-400: #FB923C;
+  --color-coral-500: #F97316;
+  --color-coral-600: #EA580C;
+  --color-coral-700: #C2410C;
+  --color-coral-800: #9A3412;
+  --color-coral-900: #7C2D12;
 
-  /* Sunshine colors */
-  --color-sunshine-50: #FFF9F0;
-  --color-sunshine-100: #FFEDD9;
-  --color-sunshine-200: #FFE1B3;
-  --color-sunshine-300: #FFD58C;
-  --color-sunshine-400: #FFC966;
-  --color-sunshine-500: #FFBD40;
-  --color-sunshine-600: #E6AA33;
-  --color-sunshine-700: #CC9726;
-  --color-sunshine-800: #B38419;
-  --color-sunshine-900: #99710D;
+  /* Sunshine colors - Warm Neutral */
+  --color-sunshine-50: #FAFAF9;
+  --color-sunshine-100: #F5F5F4;
+  --color-sunshine-200: #E7E5E4;
+  --color-sunshine-300: #D6D3D1;
+  --color-sunshine-400: #A8A29E;
+  --color-sunshine-500: #78716C;
+  --color-sunshine-600: #57534E;
+  --color-sunshine-700: #44403C;
+  --color-sunshine-800: #292524;
+  --color-sunshine-900: #1C1917;
 }
 
 body {
@@ -106,16 +99,8 @@ body {
   border-radius: 4px;
 }
 
-.dark ::-webkit-scrollbar-thumb {
-  background: #4b5563;
-}
-
 ::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
 }
 
 /* Custom focus ring */
@@ -228,7 +213,7 @@ body {
 
 /* Focus visible for better accessibility */
 *:focus-visible {
-  outline: 2px solid #FF8C42;
+  outline: 2px solid #FF6A06;
   outline-offset: 2px;
 }
 

@@ -40,21 +40,21 @@ function AuthErrorContent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-ocean-50 px-4">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error-100 dark:bg-error-900">
-            <AlertTriangle className="h-8 w-8 text-error-600 dark:text-error-400" />
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-coral-50">
+            <AlertTriangle className="h-8 w-8 text-coral-500" />
           </div>
-          <h1 className="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
+          <h1 className="mt-6 text-3xl font-bold text-gray-900">
             Erreur d&apos;authentification
           </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+          <p className="mt-2 text-sm text-gray-600">
             {getErrorMessage(error)}
           </p>
         </div>
 
-        <div className="rounded-xl border bg-white p-8 shadow-theme-md dark:border-gray-700 dark:bg-gray-800">
+        <div className="rounded-xl border border-ocean-200 bg-white p-8 shadow-md">
           <div className="space-y-4">
             <Link href="/auth/signin">
               <Button className="w-full" size="lg">
@@ -71,7 +71,7 @@ function AuthErrorContent() {
         </div>
 
         {error && (
-          <p className="text-center text-xs text-gray-500 dark:text-gray-300">
+          <p className="text-center text-xs text-gray-500">
             Code d&apos;erreur : {error}
           </p>
         )}
@@ -84,7 +84,7 @@ export default function AuthErrorPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
+        <div className="flex min-h-screen items-center justify-center bg-ocean-50 px-4">
           <div className="text-center">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-brand-500 border-t-transparent"></div>
           </div>

@@ -15,10 +15,10 @@ export function ProfilStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-gray-900">
           Votre profil
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-sm text-gray-700">
           Aidez-nous à mieux vous connaître pour personnaliser nos
           recommandations.
         </p>
@@ -26,18 +26,23 @@ export function ProfilStep() {
 
       <div className="space-y-4">
         <div>
-          <Label htmlFor="age">Âge</Label>
+          <Label htmlFor="age" required>Âge</Label>
           <Input
             id="age"
             type="number"
             placeholder="Votre âge"
-            {...register("profil.age")}
+            {...register("profil.age", { valueAsNumber: true })}
             error={!!errors.profil?.age}
           />
+          {errors.profil?.age && (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.profil.age.message}
+            </p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="situation">Situation familiale</Label>
+          <Label htmlFor="situation" required>Situation familiale</Label>
           <Select
             id="situation"
             {...register("profil.situation")}
@@ -49,10 +54,15 @@ export function ProfilStep() {
             ]}
             placeholder="Sélectionnez votre situation"
           />
+          {errors.profil?.situation && (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.profil.situation.message}
+            </p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="profession">Profession</Label>
+          <Label htmlFor="profession" required>Profession</Label>
           <Input
             id="profession"
             type="text"
@@ -60,10 +70,15 @@ export function ProfilStep() {
             {...register("profil.profession")}
             error={!!errors.profil?.profession}
           />
+          {errors.profil?.profession && (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.profil.profession.message}
+            </p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="niveauEtudes">Niveau d&apos;études</Label>
+          <Label htmlFor="niveauEtudes" required>Niveau d&apos;études</Label>
           <Select
             id="niveauEtudes"
             {...register("profil.niveauEtudes")}
@@ -77,6 +92,11 @@ export function ProfilStep() {
             ]}
             placeholder="Sélectionnez votre niveau"
           />
+          {errors.profil?.niveauEtudes && (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.profil.niveauEtudes.message}
+            </p>
+          )}
         </div>
       </div>
     </div>

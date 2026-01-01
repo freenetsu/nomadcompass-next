@@ -17,11 +17,11 @@ export function Card({
     >
       {title && (
         <div className="px-6 py-5 bg-gradient-to-r from-brand-50 to-ocean-50">
-          <h3 className="text-base font-semibold text-gray-800">
+          <h3 className="text-base font-semibold text-gray-900">
             {title}
           </h3>
           {desc && (
-            <p className="mt-1 text-sm text-gray-600">
+            <p className="mt-1 text-sm text-gray-900">
               {desc}
             </p>
           )}

@@ -2,7 +2,6 @@
 
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
-import { useTheme } from "@/context/ThemeContext";
 import type { CountryRecommendation } from "@/types/recommendations";
 
 // Import dynamique de ReactApexChart pour éviter les erreurs SSR
@@ -19,9 +18,6 @@ export function ComparisonChart({
   recommendations,
   maxCountries = 3,
 }: ComparisonChartProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
   // Prendre les N premiers pays
   const topCountries = recommendations.slice(0, maxCountries);
 
@@ -40,8 +36,9 @@ export function ComparisonChart({
     ],
   }));
 
-  const labelColor = isDark ? "#cbd5e1" : "#475569";
-  const legendColor = isDark ? "#e2e8f0" : "#334155";
+  // Light mode colors (dark mode removed)
+  const labelColor = "#475569";
+  const legendColor = "#334155";
 
   const options: ApexOptions = {
     chart: {
@@ -98,7 +95,7 @@ export function ComparisonChart({
       },
     },
     tooltip: {
-      theme: isDark ? "dark" : "light",
+      theme: "light",
       y: {
         formatter: (val: number) => `${val}/100`,
       },
@@ -108,7 +105,6 @@ export function ComparisonChart({
   return (
     <div className="w-full">
       <ReactApexChart
-        key={theme}
         options={options}
         series={series}
         type="radar"

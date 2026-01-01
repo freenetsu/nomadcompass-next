@@ -15,10 +15,10 @@ export function BudgetStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-gray-900">
           Votre budget
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-sm text-gray-700">
           Donnez-nous une idée de vos moyens financiers pour trouver les
           destinations adaptées.
         </p>
@@ -26,37 +26,47 @@ export function BudgetStep() {
 
       <div className="space-y-4">
         <div>
-          <Label htmlFor="budgetMensuel">Budget mensuel (€)</Label>
+          <Label htmlFor="budgetMensuel" required>Budget mensuel (€)</Label>
           <Input
             id="budgetMensuel"
             type="number"
             placeholder="2000"
-            {...register("budget.budgetMensuel")}
+            {...register("budget.budgetMensuel", { valueAsNumber: true })}
             error={!!errors.budget?.budgetMensuel}
-            hint={
-              errors.budget?.budgetMensuel?.message ||
-              "Budget mensuel disponible pour vivre"
-            }
           />
+          {errors.budget?.budgetMensuel ? (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.budget.budgetMensuel.message}
+            </p>
+          ) : (
+            <p className="mt-1.5 text-xs text-gray-600">
+              Budget mensuel disponible pour vivre
+            </p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="epargne">Épargne disponible (€)</Label>
+          <Label htmlFor="epargne" required>Épargne disponible (€)</Label>
           <Input
             id="epargne"
             type="number"
             placeholder="10000"
-            {...register("budget.epargne")}
+            {...register("budget.epargne", { valueAsNumber: true })}
             error={!!errors.budget?.epargne}
-            hint={
-              errors.budget?.epargne?.message ||
-              "Pour l'installation et les premiers mois"
-            }
           />
+          {errors.budget?.epargne ? (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.budget.epargne.message}
+            </p>
+          ) : (
+            <p className="mt-1.5 text-xs text-gray-600">
+              Pour l&apos;installation et les premiers mois
+            </p>
+          )}
         </div>
 
         <div>
-          <Label htmlFor="revenus">Source de revenus</Label>
+          <Label htmlFor="revenus" required>Source de revenus</Label>
           <Select
             id="revenus"
             {...register("budget.revenus")}
@@ -70,6 +80,11 @@ export function BudgetStep() {
             ]}
             placeholder="Sélectionnez votre source de revenus"
           />
+          {errors.budget?.revenus && (
+            <p className="mt-1.5 text-xs text-error-600">
+              {errors.budget.revenus.message}
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -13,12 +13,12 @@ export function ClimateSection({
   rainfall,
 }: ClimateSectionProps) {
   const getTemperatureColor = (temp: number) => {
-    if (temp < 10) return "text-blue-500 bg-blue-50 dark:bg-blue-500/15";
+    if (temp < 10) return "text-blue-500 bg-blue-50";
     if (temp < 20)
-      return "text-success-500 bg-success-50 dark:bg-success-500/15";
+      return "text-success-500 bg-success-50";
     if (temp < 25)
-      return "text-warning-500 bg-warning-50 dark:bg-warning-500/15";
-    return "text-error-500 bg-error-50 dark:bg-error-500/15";
+      return "text-warning-500 bg-warning-50";
+    return "text-error-500 bg-error-50";
   };
 
   const getRainfallLevel = (rain: number) => {
@@ -35,14 +35,14 @@ export function ClimateSection({
       unit: "°C",
       color: averageTemp
         ? getTemperatureColor(averageTemp)
-        : "text-gray-500 bg-gray-50 dark:bg-gray-800",
+        : "text-gray-500 bg-gray-50",
     },
     {
       icon: Cloud,
       label: "Type de climat",
       value: climate,
       isText: true,
-      color: "text-brand-500 bg-brand-50 dark:bg-brand-500/15",
+      color: "text-brand-500 bg-brand-50",
     },
     {
       icon: Droplets,
@@ -50,7 +50,7 @@ export function ClimateSection({
       value: rainfall,
       unit: "mm",
       extra: rainfall ? getRainfallLevel(rainfall).label : null,
-      color: "text-blue-500 bg-blue-50 dark:bg-blue-500/15",
+      color: "text-blue-500 bg-blue-50",
     },
   ];
 
@@ -64,29 +64,29 @@ export function ClimateSection({
           return (
             <div
               key={metric.label}
-              className="rounded-xl border border-gray-200 p-5 dark:border-gray-700"
+              className="rounded-xl border border-gray-200 p-5"
             >
               <div
                 className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${metric.color}`}
               >
                 <Icon className="h-6 w-6" />
               </div>
-              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <h4 className="text-sm font-medium text-gray-900">
                 {metric.label}
               </h4>
               {hasValue ? (
                 <>
                   {metric.isText ? (
-                    <p className="mt-2 text-lg font-semibold text-gray-900 dark:text-white">
+                    <p className="mt-2 text-lg font-semibold text-gray-900">
                       {metric.value}
                     </p>
                   ) : (
-                    <p className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="mt-2 text-2xl font-bold text-gray-900">
                       {typeof metric.value === "number"
                         ? metric.value.toFixed(1)
                         : metric.value}
                       {metric.unit && (
-                        <span className="ml-1 text-sm font-normal text-gray-500">
+                        <span className="ml-1 text-sm font-normal text-gray-900">
                           {metric.unit}
                         </span>
                       )}
@@ -101,7 +101,7 @@ export function ClimateSection({
                   )}
                 </>
               ) : (
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-900">
                   Données non disponibles
                 </p>
               )}
@@ -111,14 +111,14 @@ export function ClimateSection({
       </div>
 
       {averageTemp !== undefined && (
-        <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4 dark:border-gray-700 dark:bg-gray-800/50">
+        <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4">
           <div className="flex items-start gap-3">
-            <Sun className="mt-0.5 h-5 w-5 text-gray-500 dark:text-gray-300" />
+            <Sun className="mt-0.5 h-5 w-5 text-gray-900" />
             <div>
-              <h5 className="font-medium text-gray-900 dark:text-white">
+              <h5 className="font-medium text-gray-900">
                 Conditions climatiques
               </h5>
-              <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+              <p className="mt-1 text-sm text-gray-900">
                 {averageTemp < 15 &&
                   "Climat frais à froid. Prévoyez des vêtements chauds."}
                 {averageTemp >= 15 &&

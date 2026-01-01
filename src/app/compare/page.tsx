@@ -52,18 +52,18 @@ export default function ComparePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="min-h-screen bg-ocean-50">
+      <header className="border-b border-ocean-200 bg-white shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <Link
               href="/home"
-              className="flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+              className="flex items-center gap-2 text-gray-900 transition-colors hover:text-brand-500"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="hidden sm:inline">Retour</span>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <h1 className="text-2xl font-bold text-gray-900">
               Comparer les pays
             </h1>
             <div className="w-20" />
@@ -80,7 +80,7 @@ export default function ComparePage() {
         >
           <div className="space-y-4">
             <div className="mb-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+              <p className="text-sm text-gray-900 mb-3">
                 Pays disponibles pour comparaison :
               </p>
               <div className="flex flex-wrap gap-2">
@@ -91,7 +91,7 @@ export default function ComparePage() {
                     key={country.id}
                     onClick={() => addCountry(country)}
                     disabled={selectedCountries.length >= 3}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-full transition-colors hover:bg-brand-100 hover:text-brand-700 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-brand-500/20 dark:hover:text-brand-400"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-900 bg-ocean-50 rounded-full transition-colors hover:bg-brand-50 hover:text-brand-500 disabled:opacity-50 disabled:cursor-not-allowed border border-ocean-200"
                   >
                     <span>{country.flag}</span>
                     <span>{country.name}</span>
@@ -109,15 +109,15 @@ export default function ComparePage() {
                 disabled={selectedCountries.length >= 3}
               />
               {searchQuery && filteredCountries.length > 0 && (
-                <div className="absolute z-10 mt-2 w-full rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800">
+                <div className="absolute z-10 mt-2 w-full rounded-lg border border-ocean-200 bg-white shadow-lg">
                   {filteredCountries.slice(0, 5).map((country) => (
                     <button
                       key={country.id}
                       onClick={() => addCountry(country)}
-                      className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-gray-50 dark:hover:bg-gray-700"
+                      className="flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-ocean-50"
                     >
                       <span className="text-2xl">{country.flag}</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm font-medium text-gray-900">
                         {country.name}
                       </span>
                     </button>
@@ -153,14 +153,14 @@ export default function ComparePage() {
           <Card title="Comparaison" className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-200 dark:border-gray-700">
-                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">
+                <tr className="border-b border-gray-200">
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">
                     Critère
                   </th>
                   {selectedCountries.map((country) => (
                     <th
                       key={country.id}
-                      className="px-4 py-3 text-center text-sm font-semibold text-gray-900 dark:text-white"
+                      className="px-4 py-3 text-center text-sm font-semibold text-gray-900"
                     >
                       <div className="flex flex-col items-center gap-1">
                         <span className="text-2xl">{country.flag}</span>
@@ -174,11 +174,11 @@ export default function ComparePage() {
                 {CRITERIA.map((criterion, index) => (
                   <tr
                     key={criterion.key}
-                    className={`border-b border-gray-100 transition-colors hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-800/50 ${
-                      index % 2 === 0 ? "bg-gray-50/50 dark:bg-gray-800/30" : ""
+                    className={`border-b border-gray-100 transition-colors hover:bg-gray-50 ${
+                      index % 2 === 0 ? "bg-gray-50/50" : ""
                     }`}
                   >
-                    <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <td className="px-4 py-4 text-sm font-medium text-gray-900">
                       {criterion.label}
                     </td>
                     {selectedCountries.map((country) => (
@@ -187,7 +187,7 @@ export default function ComparePage() {
                         className="px-4 py-4 text-center"
                       >
                         <div className="flex flex-col items-center gap-2">
-                          <div className="h-2 w-full max-w-[100px] overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
+                          <div className="h-2 w-full max-w-[100px] overflow-hidden rounded-full bg-gray-200">
                             <div
                               className="h-full bg-gradient-to-r from-brand-500 to-brand-600 transition-all"
                               style={{
@@ -195,7 +195,7 @@ export default function ComparePage() {
                               }}
                             />
                           </div>
-                          <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                          <span className="text-sm font-semibold text-gray-900">
                             {Math.floor(Math.random() * 40 + 60)}/100
                           </span>
                         </div>
@@ -207,11 +207,11 @@ export default function ComparePage() {
             </table>
           </Card>
         ) : (
-          <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center dark:border-gray-800 dark:bg-white/[0.03]">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <div className="rounded-2xl border border-gray-200 bg-white p-12 text-center">
+            <h2 className="text-xl font-semibold text-gray-900">
               Aucun pays sélectionné
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-gray-900">
               Recherchez et sélectionnez des pays ci-dessus pour commencer la
               comparaison
             </p>

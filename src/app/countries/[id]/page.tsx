@@ -20,15 +20,15 @@ export default function CountryPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
-        <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      <div className="min-h-screen bg-white">
+        <header className="border-b border-gray-200 bg-white">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Skeleton className="h-6 w-24" />
           </div>
         </header>
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="space-y-6">
-            <div className="rounded-2xl border border-gray-200 bg-white p-8 dark:border-gray-800 dark:bg-white/[0.03]">
+            <div className="rounded-2xl border border-gray-200 bg-white p-8">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-4">
                   <Skeleton className="h-20 w-20 rounded-xl" />
@@ -51,22 +51,22 @@ export default function CountryPage() {
 
   if (error || !country) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-white">
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="max-w-md text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error-50 dark:bg-error-500/10">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error-50">
               <AlertCircle className="h-8 w-8 text-error-500" />
             </div>
-            <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="mt-6 text-xl font-semibold text-gray-900">
               {error || "Pays non trouvé"}
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-gray-900">
               Impossible de charger les informations de ce pays.
             </p>
             <div className="mt-6 flex gap-3 justify-center">
               <button
                 onClick={() => router.back()}
-                className="rounded-lg border border-gray-200 px-6 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+                className="rounded-lg border border-gray-200 px-6 py-3 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50"
               >
                 Retour
               </button>
@@ -84,20 +84,20 @@ export default function CountryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="min-h-screen bg-white">
+      <header className="border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <button
               onClick={() => router.back()}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+              className="flex items-center gap-2 text-gray-900 hover:text-brand-500"
             >
               <ArrowLeft className="h-5 w-5" />
               <span className="hidden sm:inline">Retour</span>
             </button>
             <Link
               href="/dashboard"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50"
             >
               Voir toutes les recommandations
             </Link>
