@@ -1,7 +1,9 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/Button";
+import { ArrowLeft, Globe } from "lucide-react";
+import { signIn } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -15,27 +17,44 @@ function SignInContent() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 dark:bg-gray-900">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            NomadCompass
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
-            Connectez-vous pour accéder à votre profil
-          </p>
-        </div>
+    <div className="flex min-h-screen">
+      {/* Left Side - Form */}
+      <div className="flex w-full flex-col justify-between bg-white p-8 lg:w-2/5 lg:p-12">
+        {/* Header with logo */}
+        <div className="space-y-8">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-gray-600 hover:text-brand-500 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span className="text-sm font-medium">Retour</span>
+          </Link>
 
-        <div className="rounded-xl border bg-white p-8 shadow-theme-md dark:border-gray-700 dark:bg-gray-800">
-          <div className="space-y-6">
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 mb-6">
+              <div className="rounded-lg bg-brand-500 p-2 shadow-sm">
+                <Globe className="h-6 w-6 text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-gray-900">NomadCompass</h1>
+            </div>
+
+            <h2 className="text-3xl font-bold text-gray-900">Connexion</h2>
+            <p className="text-base text-gray-600">
+              Accédez à votre espace NomadCompass pour explorer vos analyses et
+              statistiques
+            </p>
+          </div>
+
+          {/* Auth Buttons */}
+          <div className="space-y-3 pt-4">
             <Button
               onClick={handleGoogleSignIn}
               variant="outline"
-              className="w-full"
+              className="w-full justify-start font-medium border-ocean-200 hover:bg-ocean-50 hover:border-brand-500"
               size="lg"
             >
               <svg
-                className="mr-2 h-5 w-5"
+                className="mr-3 h-5 w-5"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -58,42 +77,41 @@ function SignInContent() {
               </svg>
               Continuer avec Google
             </Button>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="bg-white px-2 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
-                  ou
-                </span>
-              </div>
-            </div>
-
-            <Link href="/">
-              <Button variant="ghost" className="w-full" size="lg">
-                Retour à l&apos;accueil
-              </Button>
-            </Link>
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
+        {/* Footer */}
+        <div className="space-y-4">
+          <p className="text-sm text-gray-600">
             Vous n&apos;avez pas encore de compte ?{" "}
             <Link
               href="/auth/signup"
-              className="text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400 font-medium"
+              className="text-brand-500 hover:text-brand-600 font-semibold"
             >
               Créer un compte
             </Link>
           </p>
+          <p className="text-xs text-gray-500">
+            En vous connectant, vous acceptez nos conditions d&apos;utilisation
+            et notre politique de confidentialité.
+          </p>
         </div>
+      </div>
 
-        <p className="text-center text-xs text-gray-500 dark:text-gray-300">
-          En vous connectant, vous acceptez nos conditions d&apos;utilisation et
-          notre politique de confidentialité.
-        </p>
+      {/* Right Side - Illustration */}
+      <div className="hidden lg:block lg:w-3/5 relative bg-linear-to-br from-ocean-50 to-sunshine-50">
+        <div className="absolute inset-0 flex items-center justify-center p-12">
+          <div className="w-full h-full max-w-4xl rounded-2xl overflow-hidden shadow-2xl">
+            <Image
+              src="/illustration/portraitMontagne.jpeg"
+              alt="Adventure Illustration"
+              width={1200}
+              height={800}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -101,7 +119,13 @@ function SignInContent() {
 
 export default function SignInPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Chargement...</div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          Chargement...
+        </div>
+      }
+    >
       <SignInContent />
     </Suspense>
   );

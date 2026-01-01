@@ -64,20 +64,20 @@ export default function QuestionnairePage() {
     mode: "onChange",
     defaultValues: {
       profil: {
-        age: undefined,
-        situation: undefined,
+        age: "" as any,
+        situation: "" as any,
         profession: "",
-        niveauEtudes: undefined,
+        niveauEtudes: "" as any,
       },
       budget: {
-        budgetMensuel: undefined,
-        epargne: undefined,
-        revenus: undefined,
+        budgetMensuel: "" as any,
+        epargne: "" as any,
+        revenus: "" as any,
       },
       climat: {
-        temperaturePreferee: undefined,
-        saisonPreferee: undefined,
-        precipitations: undefined,
+        temperaturePreferee: "" as any,
+        saisonPreferee: "" as any,
+        precipitations: "" as any,
       },
       priorites: {
         coutVie: 3,
@@ -189,17 +189,17 @@ export default function QuestionnairePage() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
-      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <div className="min-h-screen bg-ocean-50">
+      <header className="border-b border-ocean-200 bg-white shadow-sm">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
           <Link
-            href="/"
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+            href="/home"
+            className="flex items-center gap-2 text-gray-900 hover:text-brand-500 transition-colors"
           >
             <ArrowLeft className="h-5 w-5" />
             Retour
           </Link>
-          <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h1 className="text-lg font-semibold text-gray-900">
             Questionnaire
           </h1>
           <div className="w-20" />
@@ -220,7 +220,7 @@ export default function QuestionnairePage() {
                     className={`flex h-10 w-10 items-center justify-center rounded-full border-2 ${
                       index <= currentStep
                         ? "border-brand-500 bg-brand-500 text-white"
-                        : "border-gray-300 bg-white text-gray-500 dark:border-gray-600 dark:bg-gray-800"
+                        : "border-ocean-200 bg-white text-gray-500"
                     }`}
                   >
                     {index + 1}
@@ -229,7 +229,7 @@ export default function QuestionnairePage() {
                     className={`mt-2 hidden text-xs sm:block ${
                       index <= currentStep
                         ? "font-medium text-brand-500"
-                        : "text-gray-500 dark:text-gray-300"
+                        : "text-gray-600"
                     }`}
                   >
                     {step.title}
@@ -240,7 +240,7 @@ export default function QuestionnairePage() {
                     className={`mx-2 h-0.5 flex-1 ${
                       index < currentStep
                         ? "bg-brand-500"
-                        : "bg-gray-300 dark:bg-gray-600"
+                        : "bg-ocean-200"
                     }`}
                   />
                 )}
@@ -260,7 +260,7 @@ export default function QuestionnairePage() {
               }
             }}
           >
-            <div className="rounded-2xl bg-white p-8 shadow-theme-sm dark:bg-gray-800">
+            <div className="rounded-xl bg-white p-8 shadow-md border border-ocean-200">
               <StepComponent />
 
               <div className="mt-12 flex items-center justify-between">

@@ -15,8 +15,8 @@ export default function DashboardPage() {
   // État de chargement
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
-        <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      <div className="min-h-screen bg-ocean-50">
+        <header className="border-b border-ocean-200 bg-white shadow-sm">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
             <Skeleton className="h-8 w-64" />
             <Skeleton className="mt-2 h-4 w-48" />
@@ -45,16 +45,16 @@ export default function DashboardPage() {
   // État d'erreur
   if (error) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-ocean-50">
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="max-w-md text-center">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-error-50 dark:bg-error-500/10">
-              <Globe className="h-8 w-8 text-error-500" />
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-coral-50">
+              <Globe className="h-8 w-8 text-coral-500" />
             </div>
-            <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="mt-6 text-xl font-semibold text-gray-900">
               Erreur lors du chargement
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">{error}</p>
+            <p className="mt-2 text-gray-900">{error}</p>
             {error.includes("questionnaire") ? (
               <Link
                 href="/questionnaire"
@@ -79,14 +79,14 @@ export default function DashboardPage() {
   // Pas de recommandations
   if (!recommendations || recommendations.recommendations.length === 0) {
     return (
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-ocean-50">
         <div className="flex min-h-screen items-center justify-center p-4">
           <div className="max-w-md text-center">
-            <Globe className="mx-auto h-16 w-16 text-gray-400" />
-            <h2 className="mt-6 text-xl font-semibold text-gray-900 dark:text-white">
+            <Globe className="mx-auto h-16 w-16 text-gray-900" />
+            <h2 className="mt-6 text-xl font-semibold text-gray-900">
               Aucune recommandation disponible
             </h2>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">
+            <p className="mt-2 text-gray-900">
               Veuillez compléter le questionnaire pour recevoir des
               recommandations personnalisées.
             </p>
@@ -106,31 +106,31 @@ export default function DashboardPage() {
   const topCountry = countries[0];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900">
+    <div className="min-h-screen bg-ocean-50">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+      <header className="border-b border-ocean-200 bg-white shadow-sm">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/home"
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                className="flex items-center gap-2 text-gray-900 hover:text-brand-500"
               >
                 <ArrowLeft className="h-5 w-5" />
                 <span className="hidden sm:inline">Retour</span>
               </Link>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h1 className="text-2xl font-bold text-gray-900">
                   Vos Recommandations
                 </h1>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                <p className="mt-1 text-sm text-gray-900">
                   {countries.length} pays analysés selon votre profil
                 </p>
               </div>
             </div>
             <Link
               href="/questionnaire"
-              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-white/80 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800"
+              className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-50"
             >
               Refaire le questionnaire
             </Link>
@@ -142,17 +142,17 @@ export default function DashboardPage() {
         {/* Statistiques */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3 md:gap-6">
           {/* Meilleure recommandation */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-500/15">
-              <Target className="h-6 w-6 text-brand-500" />
+          <div className="rounded-xl border border-ocean-200 bg-white p-5 shadow-sm md:p-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-500 shadow-sm">
+              <Target className="h-6 w-6 text-white" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-300">
+              <span className="text-sm text-gray-900">
                 Meilleure recommandation
               </span>
               <div className="mt-2 flex items-center gap-2">
                 <span className="text-2xl">{topCountry.flag}</span>
-                <h4 className="text-lg font-bold text-gray-800 dark:text-white/90">
+                <h4 className="text-lg font-bold text-gray-900">
                   {topCountry.countryName}
                 </h4>
               </div>
@@ -163,15 +163,15 @@ export default function DashboardPage() {
           </div>
 
           {/* Score moyen */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success-50 dark:bg-success-500/15">
-              <TrendingUp className="h-6 w-6 text-success-500" />
+          <div className="rounded-xl border border-ocean-200 bg-white p-5 shadow-sm md:p-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-500 shadow-sm">
+              <TrendingUp className="h-6 w-6 text-white" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-300">
+              <span className="text-sm text-gray-900">
                 Score moyen
               </span>
-              <h4 className="mt-2 text-lg font-bold text-gray-800 dark:text-white/90">
+              <h4 className="mt-2 text-lg font-bold text-gray-900">
                 {Math.round(
                   countries.reduce((sum, c) => sum + c.overallScore, 0) /
                     countries.length,
@@ -182,18 +182,18 @@ export default function DashboardPage() {
           </div>
 
           {/* Budget */}
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-warning-50 dark:bg-warning-500/15">
-              <Globe className="h-6 w-6 text-warning-500" />
+          <div className="rounded-xl border border-ocean-200 bg-white p-5 shadow-sm md:p-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-brand-500 shadow-sm">
+              <Globe className="h-6 w-6 text-white" />
             </div>
             <div className="mt-5">
-              <span className="text-sm text-gray-500 dark:text-gray-300">
+              <span className="text-sm text-gray-900">
                 Catégorie budget
               </span>
-              <h4 className="mt-2 text-lg font-bold capitalize text-gray-800 dark:text-white/90">
+              <h4 className="mt-2 text-lg font-bold capitalize text-gray-900">
                 {analysis.budgetCategory}
               </h4>
-              <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
+              <p className="mt-1 text-xs text-gray-900">
                 {analysis.climatePreference}
               </p>
             </div>
@@ -217,9 +217,9 @@ export default function DashboardPage() {
             {analysis.topPriorities.map((priority, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 dark:border-gray-700 dark:bg-gray-800"
+                className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2"
               >
-                <span className="text-sm font-medium text-gray-900 dark:text-white">
+                <span className="text-sm font-medium text-gray-900">
                   {priority.name}
                 </span>
                 <Badge color="primary" size="sm">
@@ -232,7 +232,7 @@ export default function DashboardPage() {
 
         {/* Liste des recommandations */}
         <div className="mb-8">
-          <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-white">
+          <h2 className="mb-6 text-xl font-bold text-gray-900">
             Tous les pays recommandés
           </h2>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

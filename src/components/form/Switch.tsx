@@ -26,10 +26,10 @@ export function Switch({
   };
 
   const backgroundColors = {
-    blue: checked ? "bg-brand-500" : "bg-gray-200 dark:bg-white/10",
+    blue: checked ? "bg-brand-500" : "bg-gray-200",
     gray: checked
-      ? "bg-gray-800 dark:bg-white/10"
-      : "bg-gray-200 dark:bg-white/10",
+      ? "bg-gray-800"
+      : "bg-gray-200",
   };
 
   return (
@@ -38,7 +38,7 @@ export function Switch({
         "flex cursor-pointer select-none items-center gap-3 text-sm font-medium",
         disabled
           ? "cursor-not-allowed text-gray-400"
-          : "text-gray-700 dark:text-gray-300",
+          : "text-gray-700",
         className,
       )}
       onClick={handleToggle}
@@ -48,7 +48,7 @@ export function Switch({
           className={cn(
             "block h-6 w-11 rounded-full transition duration-150 ease-linear",
             disabled
-              ? "pointer-events-none bg-white dark:bg-gray-800"
+              ? "pointer-events-none bg-white"
               : backgroundColors[color],
           )}
         />

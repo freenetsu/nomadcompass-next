@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ThemeProvider } from "@/context/ThemeContext";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { PageTransition } from "@/components/providers/PageTransition";
@@ -91,10 +90,8 @@ export default function RootLayout({
       <body className="font-outfit antialiased">
         <ErrorBoundary>
           <SessionProvider>
-            <ThemeProvider>
-              <PageTransition>{children}</PageTransition>
-              <ToastProvider />
-            </ThemeProvider>
+            <PageTransition>{children}</PageTransition>
+            <ToastProvider />
           </SessionProvider>
         </ErrorBoundary>
       </body>

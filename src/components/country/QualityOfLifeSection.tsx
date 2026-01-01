@@ -38,21 +38,21 @@ export function QualityOfLifeSection({
       label: "Sécurité",
       value: safetyIndex,
       description: "Indice de sécurité générale",
-      color: "text-success-500 bg-success-50 dark:bg-success-500/15",
+      color: "text-success-500 bg-success-50",
     },
     {
       icon: Heart,
       label: "Santé",
       value: healthcareIndex,
       description: "Qualité du système de santé",
-      color: "text-error-500 bg-error-50 dark:bg-error-500/15",
+      color: "text-error-500 bg-error-50",
     },
     {
       icon: Wind,
       label: "Environnement",
       value: pollutionIndex ? 100 - pollutionIndex : undefined,
       description: "Qualité de l'air et environnement",
-      color: "text-blue-500 bg-blue-50 dark:bg-blue-500/15",
+      color: "text-blue-500 bg-blue-50",
       inverted: true,
     },
     {
@@ -60,7 +60,7 @@ export function QualityOfLifeSection({
       label: "Internet",
       value: internetSpeed,
       description: "Vitesse et fiabilité internet",
-      color: "text-brand-500 bg-brand-50 dark:bg-brand-500/15",
+      color: "text-brand-500 bg-brand-50",
     },
   ];
 
@@ -143,35 +143,35 @@ export function QualityOfLifeSection({
           return (
             <div
               key={metric.label}
-              className="rounded-xl border border-gray-200 p-5 dark:border-gray-700"
+              className="rounded-xl border border-gray-200 p-5"
             >
               <div
                 className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${metric.color}`}
               >
                 <Icon className="h-6 w-6" />
               </div>
-              <h4 className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <h4 className="text-sm font-medium text-gray-900">
                 {metric.label}
               </h4>
               {hasValue ? (
                 <>
                   <div className="mt-2 flex items-baseline gap-2">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-2xl font-bold text-gray-900">
                       {metric.value!.toFixed(0)}
                     </p>
-                    <span className="text-sm text-gray-500">/100</span>
+                    <span className="text-sm text-gray-900">/100</span>
                   </div>
                   <p
                     className={`mt-1 text-sm font-medium ${getScoreColor(metric.value!)}`}
                   >
                     {getScoreLabel(metric.value!)}
                   </p>
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
+                  <p className="mt-1 text-xs text-gray-900">
                     {metric.description}
                   </p>
                 </>
               ) : (
-                <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                <p className="mt-2 text-sm text-gray-900">
                   Non disponible
                 </p>
               )}
@@ -182,10 +182,10 @@ export function QualityOfLifeSection({
 
       {hasChartData && (
         <div className="mt-6">
-          <h4 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">
+          <h4 className="mb-4 text-sm font-semibold text-gray-900">
             Comparaison visuelle
           </h4>
-          <div className="rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+          <div className="rounded-xl border border-gray-200 p-4">
             <ReactApexChart
               options={chartOptions}
               series={chartSeries}
@@ -196,9 +196,9 @@ export function QualityOfLifeSection({
         </div>
       )}
 
-      <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4 dark:border-gray-700 dark:bg-gray-800/50">
-        <div className="text-sm text-gray-600 dark:text-gray-300">
-          <p className="font-medium text-gray-900 dark:text-white">
+      <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4">
+        <div className="text-sm text-gray-900">
+          <p className="font-medium text-gray-900">
             💡 Bon à savoir
           </p>
           <ul className="mt-2 space-y-1">

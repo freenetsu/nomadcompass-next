@@ -29,10 +29,10 @@ export function PrioritesStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+        <h2 className="text-2xl font-bold text-gray-900">
           Vos priorités
         </h2>
-        <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <p className="mt-2 text-sm text-gray-700">
           Notez de 1 (peu important) à 5 (très important) les critères suivants.
         </p>
       </div>
@@ -57,12 +57,12 @@ export function PrioritesStep() {
                 max="5"
                 step="1"
                 {...register(`priorites.${key}`)}
-                className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 dark:bg-gray-700"
+                className="mt-2 h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
                 style={{
                   background: `linear-gradient(to right, rgb(70 95 255) 0%, rgb(70 95 255) ${((Number(value) - 1) / 4) * 100}%, rgb(229 231 235) ${((Number(value) - 1) / 4) * 100}%, rgb(229 231 235) 100%)`,
                 }}
               />
-              <div className="mt-1 flex justify-between text-xs text-gray-500 dark:text-gray-300">
+              <div className="mt-1 flex justify-between text-xs text-gray-500">
                 <span>Peu important</span>
                 <span>Très important</span>
               </div>
