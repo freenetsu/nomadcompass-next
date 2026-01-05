@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import type { Session } from "next-auth";
 import type { UserRole } from "@/types/auth";
 

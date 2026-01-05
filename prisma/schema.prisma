@@ -7,20 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ============================================
+// NextAuth.js / Auth.js Models (Required)
+// ============================================
+
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
+  id            String          @id @default(cuid())
   name          String?
-  googleId      String?        @unique
-  image         String?
+  email         String?         @unique
   emailVerified DateTime?
-  role          String         @default("user")
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  accounts      Account[]
-  favorites     Favorite[]
-  sessions      Session[]
-  responses     UserResponse[]
+  image         String?
+  role          String          @default("user")
+  location      String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  accounts       Account[]
+  sessions       Session[]
+  favorites      Favorite[]
+  user_responses UserResponse[]
 
   @@map("users")
 }
@@ -31,14 +36,15 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -49,7 +55,10 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
@@ -63,34 +72,25 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-model UserResponse {
-  id        String   @id @default(cuid())
-  userId    String
-  responses Json
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+// ============================================
+// Application-Specific Models
+// ============================================
 
-  @@map("user_responses")
+model countries {
+  id           String        @id
+  name         String        @unique
+  code         String        @unique
+  flag         String
+  continent    String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  country_data country_data?
+  favorites    Favorite[]
 }
 
-model Country {
-  id        String       @id @default(cuid())
-  name      String       @unique
-  code      String       @unique
-  flag      String
-  continent String
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
-  data      CountryData?
-  favorites Favorite[]
-
-  @@map("countries")
-}
-
-model CountryData {
-  id                String   @id @default(cuid())
-  countryId         String   @unique
+model country_data {
+  id                String    @id
+  countryId         String    @unique
   costOfLivingIndex Float?
   averageRent       Float?
   averageSalary     Float?
@@ -105,11 +105,10 @@ model CountryData {
   visaRequirements  String?
   taxRate           Float?
   rawData           Json?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  country           Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
-  @@map("country_data")
+  countries countries @relation(fields: [countryId], references: [id], onDelete: Cascade)
 }
 
 model Favorite {
@@ -117,9 +116,22 @@ model Favorite {
   userId    String
   countryId String
   createdAt DateTime @default(now())
-  country   Country  @relation(fields: [countryId], references: [id], onDelete: Cascade)
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  countries countries @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, countryId])
   @@map("favorites")
+}
+
+model UserResponse {
+  id        String   @id @default(cuid())
+  userId    String
+  responses Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_responses")
 }

@@ -8,7 +8,7 @@ export async function POST() {
     await requireAdmin();
 
     // Récupérer tous les pays
-    const countries = await prisma.country.findMany({
+    const countries = await prisma.countries.findMany({
       select: { id: true, name: true },
     });
 

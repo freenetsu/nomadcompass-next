@@ -11,6 +11,7 @@ import {
   Shield,
   Heart,
   TrendingUp,
+  Info,
 } from "lucide-react";
 
 interface RecommendationCardProps {
@@ -127,6 +128,18 @@ export function RecommendationCard({
           <span className="mt-1 font-semibold text-gray-900">
             {scores.lifestyle}
           </span>
+        </div>
+      </div>
+
+      {/* Explication des scores */}
+      <div className="mt-4 rounded-lg border border-blue-100 bg-blue-50 p-3">
+        <div className="flex items-start gap-2">
+          <Info className="h-4 w-4 shrink-0 text-blue-600 mt-0.5" />
+          <div className="text-xs text-blue-900">
+            <span className="font-medium">Scores personnalisés :</span> Ces notes sur 100 sont calculées selon vos priorités.
+            Budget compare le coût de vie avec votre budget, Climat évalue la météo selon vos préférences,
+            et les autres scores combinent des données réelles (sécurité, santé) avec vos besoins.
+          </div>
         </div>
       </div>
 

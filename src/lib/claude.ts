@@ -61,14 +61,14 @@ ${countries
   .map(
     (country) => `
 **${country.name} ${country.flag}**
-- Indice coût de vie : ${country.data.costOfLivingIndex || "N/A"}
-- Loyer moyen : ${country.data.averageRent || "N/A"}
-- Température moyenne : ${country.data.averageTemp || "N/A"}°C
-- Climat : ${country.data.climate || "N/A"}
-- Indice sécurité : ${country.data.safetyIndex || "N/A"}/100
-- Indice santé : ${country.data.healthcareIndex || "N/A"}/100
-- Indice pollution : ${country.data.pollutionIndex || "N/A"}/100
-- Indice transport : ${country.data.transportIndex || "N/A"}/100
+- Indice coût de vie : ${country.country_data.costOfLivingIndex || "N/A"}
+- Loyer moyen : ${country.country_data.averageRent || "N/A"}
+- Température moyenne : ${country.country_data.averageTemp || "N/A"}°C
+- Climat : ${country.country_data.climate || "N/A"}
+- Indice sécurité : ${country.country_data.safetyIndex || "N/A"}/100
+- Indice santé : ${country.country_data.healthcareIndex || "N/A"}/100
+- Indice pollution : ${country.country_data.pollutionIndex || "N/A"}/100
+- Indice transport : ${country.country_data.transportIndex || "N/A"}/100
 `,
   )
   .join("\n")}

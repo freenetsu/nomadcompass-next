@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { isAdmin } from "@/lib/auth/helpers";
 import { redirect } from "next/navigation";
 import { LayoutDashboard, Globe, RefreshCw, LogOut, Home } from "lucide-react";

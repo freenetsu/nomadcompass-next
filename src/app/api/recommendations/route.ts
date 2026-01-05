@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { generateRecommendations } from "@/lib/claude";
 import type { QuestionnaireFormData } from "@/lib/validations/questionnaire";
@@ -36,9 +36,9 @@ export async function GET() {
     }
 
     // Récupérer tous les pays avec leurs données
-    const countries = await prisma.country.findMany({
+    const countries = await prisma.countries.findMany({
       include: {
-        data: true,
+        country_data: true,
       },
       orderBy: {
         name: "asc",
@@ -61,16 +61,16 @@ export async function GET() {
       name: country.name,
       code: country.code,
       flag: country.flag,
-      data: {
-        costOfLivingIndex: country.data?.costOfLivingIndex ?? undefined,
-        averageRent: country.data?.averageRent ?? undefined,
-        averageSalary: country.data?.averageSalary ?? undefined,
-        averageTemp: country.data?.averageTemp ?? undefined,
-        climate: country.data?.climate ?? undefined,
-        safetyIndex: country.data?.safetyIndex ?? undefined,
-        healthcareIndex: country.data?.healthcareIndex ?? undefined,
-        pollutionIndex: country.data?.pollutionIndex ?? undefined,
-        transportIndex: country.data?.transportIndex ?? undefined,
+      country_data: {
+        costOfLivingIndex: country.country_data?.costOfLivingIndex ?? undefined,
+        averageRent: country.country_data?.averageRent ?? undefined,
+        averageSalary: country.country_data?.averageSalary ?? undefined,
+        averageTemp: country.country_data?.averageTemp ?? undefined,
+        climate: country.country_data?.climate ?? undefined,
+        safetyIndex: country.country_data?.safetyIndex ?? undefined,
+        healthcareIndex: country.country_data?.healthcareIndex ?? undefined,
+        pollutionIndex: country.country_data?.pollutionIndex ?? undefined,
+        transportIndex: country.country_data?.transportIndex ?? undefined,
       },
     }));
 

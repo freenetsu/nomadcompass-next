@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Récupérer tous les pays pour les pages dynamiques
   let countryPages: MetadataRoute.Sitemap = [];
   try {
-    const countries = await prisma.country.findMany({
+    const countries = await prisma.countries.findMany({
       select: { id: true, updatedAt: true },
     });
 

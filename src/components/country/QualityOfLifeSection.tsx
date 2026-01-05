@@ -199,20 +199,23 @@ export function QualityOfLifeSection({
       <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4">
         <div className="text-sm text-gray-900">
           <p className="font-medium text-gray-900">
-            💡 Bon à savoir
+            💡 Comprendre les scores
           </p>
-          <ul className="mt-2 space-y-1">
+          <ul className="mt-2 space-y-1.5">
             <li>
-              • Les indices sont basés sur des données collectées auprès de
-              milliers d'utilisateurs
+              • <span className="font-medium">Source des données :</span> Ces scores proviennent de Numbeo.com,
+              une base collaborative alimentée par des milliers d&apos;expatriés à travers le monde
             </li>
             <li>
-              • Un score supérieur à 70 est considéré comme excellent pour la
-              qualité de vie
+              • <span className="font-medium">Échelle :</span> Tous les scores vont de 0 à 100.
+              Plus le score est élevé, meilleure est la qualité dans cette catégorie
             </li>
             <li>
-              • L'indice environnement est inversé : moins de pollution = score
-              plus élevé
+              • <span className="font-medium">Pollution inversée :</span> Le score Environnement affiche
+              (100 - pollution), donc un score élevé = air propre
+            </li>
+            <li>
+              • <span className="font-medium">Seuils :</span> 70+ = Excellent, 50-69 = Bon, &lt;50 = Moyen
             </li>
           </ul>
         </div>

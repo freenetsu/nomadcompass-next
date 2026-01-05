@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
@@ -17,9 +17,8 @@ export async function GET() {
         userId: session.user.id,
       },
       include: {
-        country: {
-          include: {
-            data: true,
+        countries: {
+          include: { country_data: true,
           },
         },
       },
@@ -79,7 +78,7 @@ export async function POST(request: Request) {
         countryId,
       },
       include: {
-        country: true,
+        countries: true,
       },
     });
 

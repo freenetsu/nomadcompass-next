@@ -10,10 +10,20 @@ function AuthErrorContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
+  // Log détaillé de l'erreur côté client
+  if (error) {
+    console.error("🔴 [AUTH ERROR PAGE] Type d'erreur:", error);
+    console.error("🔴 [AUTH ERROR PAGE] Tous les params:", {
+      error: searchParams.get("error"),
+      code: searchParams.get("code"),
+      state: searchParams.get("state"),
+    });
+  }
+
   const getErrorMessage = (error: string | null) => {
     switch (error) {
       case "Configuration":
-        return "Il y a un problème avec la configuration du serveur.";
+        return "Il y a un problème avec la configuration du serveur. Vérifiez les logs du serveur pour plus de détails.";
       case "AccessDenied":
         return "L'accès a été refusé.";
       case "Verification":
@@ -39,6 +49,21 @@ function AuthErrorContent() {
     }
   };
 
+  const getErrorDetails = (error: string | null) => {
+    switch (error) {
+      case "Configuration":
+        return [
+          "• Vérifiez que les variables d'environnement GitHub OAuth sont correctes",
+          "• Assurez-vous que l'URL de redirection dans GitHub Settings est exacte",
+          "• Consultez les logs du serveur dans le terminal pour plus d'informations",
+        ];
+      default:
+        return null;
+    }
+  };
+
+  const errorDetails = getErrorDetails(error);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-ocean-50 px-4">
       <div className="w-full max-w-md space-y-8">
@@ -55,6 +80,19 @@ function AuthErrorContent() {
         </div>
 
         <div className="rounded-xl border border-ocean-200 bg-white p-8 shadow-md">
+          {errorDetails && (
+            <div className="mb-6 rounded-lg bg-amber-50 p-4 text-left">
+              <p className="mb-2 text-sm font-semibold text-amber-900">
+                Informations de débogage :
+              </p>
+              <ul className="space-y-1 text-xs text-amber-800">
+                {errorDetails.map((detail, index) => (
+                  <li key={index}>{detail}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           <div className="space-y-4">
             <Link href="/auth/signin">
               <Button className="w-full" size="lg">
@@ -71,9 +109,14 @@ function AuthErrorContent() {
         </div>
 
         {error && (
-          <p className="text-center text-xs text-gray-500">
-            Code d&apos;erreur : {error}
-          </p>
+          <div className="text-center">
+            <p className="text-xs text-gray-500">
+              Code d&apos;erreur : {error}
+            </p>
+            <p className="mt-1 text-xs text-gray-400">
+              Consultez la console du navigateur (F12) et les logs du serveur
+            </p>
+          </div>
         )}
       </div>
     </div>

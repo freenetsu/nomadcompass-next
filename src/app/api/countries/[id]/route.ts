@@ -8,10 +8,9 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const country = await prisma.country.findUnique({
+    const country = await prisma.countries.findUnique({
       where: { id },
-      include: {
-        data: true,
+      include: { country_data: true,
       },
     });
 

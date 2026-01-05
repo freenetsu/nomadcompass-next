@@ -17,7 +17,7 @@ export interface CountryRecommendation {
     healthcare: number; // 0-100
     lifestyle: number; // 0-100
   };
-  data: {
+  country_data: {
     costOfLivingIndex?: number;
     averageRent?: number;
     averageTemp?: number;
@@ -25,6 +25,8 @@ export interface CountryRecommendation {
     safetyIndex?: number;
     healthcareIndex?: number;
     pollutionIndex?: number;
+    internetSpeed?: number;
+    transportIndex?: number;
   };
 }
 
@@ -48,7 +50,7 @@ export interface ClaudeAnalysisInput {
     name: string;
     code: string;
     flag: string;
-    data: {
+    country_data: {
       costOfLivingIndex?: number;
       averageRent?: number;
       averageSalary?: number;
@@ -57,6 +59,7 @@ export interface ClaudeAnalysisInput {
       safetyIndex?: number;
       healthcareIndex?: number;
       pollutionIndex?: number;
+      internetSpeed?: number;
       transportIndex?: number;
     };
   }>;

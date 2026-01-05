@@ -1,10 +1,46 @@
-import { handlers } from "@/lib/auth";
+import { handlers } from "@/auth";
+import { NextRequest } from "next/server";
 
-// Debug: Log environment variables in API route
-console.log("🔍 [API ROUTE] Auth route loaded");
-console.log("🔍 [API ROUTE] GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID ? `${process.env.GOOGLE_CLIENT_ID.substring(0, 20)}...` : "❌ NOT SET");
-console.log("🔍 [API ROUTE] GOOGLE_CLIENT_SECRET:", process.env.GOOGLE_CLIENT_SECRET ? "✅ SET" : "❌ NOT SET");
-console.log("🔍 [API ROUTE] NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET ? "✅ SET" : "❌ NOT SET");
-console.log("🔍 [API ROUTE] NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+/**
+ * NextAuth.js API Route Handler with detailed logging
+ *
+ * This file exports the GET and POST handlers from Auth.js
+ * to handle all authentication requests at /api/auth/*
+ */
 
-export const { GET, POST } = handlers;
+async function loggedGET(request: NextRequest) {
+  const url = new URL(request.url);
+  console.log("\n🌐 [API ROUTE] GET request received");
+  console.log("  - Path:", url.pathname);
+  console.log("  - Search params:", url.searchParams.toString());
+  console.log("  - Full URL:", url.toString());
+
+  try {
+    const response = await handlers.GET(request);
+    console.log("  ✅ GET handler completed successfully");
+    console.log("  - Status:", response.status);
+    return response;
+  } catch (error) {
+    console.error("  ❌ GET handler error:", error);
+    throw error;
+  }
+}
+
+async function loggedPOST(request: NextRequest) {
+  const url = new URL(request.url);
+  console.log("\n🌐 [API ROUTE] POST request received");
+  console.log("  - Path:", url.pathname);
+  console.log("  - Search params:", url.searchParams.toString());
+
+  try {
+    const response = await handlers.POST(request);
+    console.log("  ✅ POST handler completed successfully");
+    console.log("  - Status:", response.status);
+    return response;
+  } catch (error) {
+    console.error("  ❌ POST handler error:", error);
+    throw error;
+  }
+}
+
+export { loggedGET as GET, loggedPOST as POST };
