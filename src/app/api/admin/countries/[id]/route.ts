@@ -12,7 +12,7 @@ export async function DELETE(
 
     const { id } = await params;
 
-    await prisma.country.delete({
+    await prisma.countries.delete({
       where: { id },
     });
 

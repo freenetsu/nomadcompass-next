@@ -135,9 +135,10 @@ async function scrapeCountryData(
 
     // Save to database
     console.log(`  💾 Saving to database...`);
-    await prisma.countryData.upsert({
+    await prisma.country_data.upsert({
       where: { countryId },
       create: {
+        id: `${countryId}_data`,
         countryId,
         ...parsedData,
       },
@@ -169,7 +170,7 @@ async function main() {
 
   try {
     // Fetch all countries from database
-    const countries = await prisma.country.findMany({
+    const countries = await prisma.countries.findMany({
       select: {
         id: true,
         name: true,

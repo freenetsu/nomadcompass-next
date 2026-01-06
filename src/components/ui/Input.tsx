@@ -21,7 +21,7 @@ export function Input({
   return (
     <div className="w-full">
       {label && (
-        <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-2 block text-sm font-medium text-gray-700">
           {label}
         </label>
       )}
@@ -38,9 +38,9 @@ export function Input({
             "placeholder:text-gray-400",
             "hover:border-gray-400",
             error
-              ? "border-error-300 bg-error-50 dark:border-error-700 dark:bg-error-900/10"
-              : "border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-800",
-            "dark:text-white dark:placeholder:text-gray-500",
+              ? "border-error-300 bg-error-50"
+              : "border-gray-300 bg-white",
+            "text-gray-900",
             startIcon && "pl-10",
             endIcon && "pr-10",
             className,

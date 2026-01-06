@@ -7,9 +7,9 @@ export async function GET() {
     // Vérification admin avec helper type-safe
     await requireAdmin();
 
-    const countries = await prisma.country.findMany({
+    const countries = await prisma.countries.findMany({
       include: {
-        data: {
+        country_data: {
           select: {
             costOfLivingIndex: true,
             safetyIndex: true,
@@ -44,8 +44,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const country = await prisma.country.create({
-      data: { name, code, flag, continent },
+    const country = await prisma.countries.create({
+      data: { id: code, name, code, flag, continent },
     });
 
     return NextResponse.json(country, { status: 201 });

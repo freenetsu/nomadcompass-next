@@ -4,6 +4,7 @@ import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ToastProvider } from "@/components/providers/ToastProvider";
 import { PageTransition } from "@/components/providers/PageTransition";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { UnregisterServiceWorker } from "@/components/UnregisterServiceWorker";
 import { Outfit } from "next/font/google";
 
 const outfit = Outfit({

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
@@ -17,9 +17,8 @@ export async function GET() {
         userId: session.user.id,
       },
       include: {
-        country: {
-          include: {
-            data: true,
+        countries: {
+          include: { country_data: true,
           },
         },
       },
@@ -28,7 +27,28 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(favorites);
+    // Transform data to match frontend interface (countries -> country, country_data -> data)
+    const transformedFavorites = favorites.map((fav) => ({
+      id: fav.id,
+      userId: fav.userId,
+      countryId: fav.countryId,
+      createdAt: fav.createdAt,
+      country: {
+        id: fav.countries.id,
+        name: fav.countries.name,
+        code: fav.countries.code,
+        flag: fav.countries.flag,
+        continent: fav.countries.continent,
+        data: fav.countries.country_data ? {
+          costOfLivingIndex: fav.countries.country_data.costOfLivingIndex,
+          averageRent: fav.countries.country_data.averageRent,
+          safetyIndex: fav.countries.country_data.safetyIndex,
+          healthcareIndex: fav.countries.country_data.healthcareIndex,
+        } : null,
+      },
+    }));
+
+    return NextResponse.json(transformedFavorites);
   } catch (error) {
     console.error("Error fetching favorites:", error);
     return NextResponse.json(
@@ -79,11 +99,34 @@ export async function POST(request: Request) {
         countryId,
       },
       include: {
-        country: true,
+        countries: {
+          include: { country_data: true },
+        },
       },
     });
 
-    return NextResponse.json(favorite, { status: 201 });
+    // Transform data to match frontend interface
+    const transformedFavorite = {
+      id: favorite.id,
+      userId: favorite.userId,
+      countryId: favorite.countryId,
+      createdAt: favorite.createdAt,
+      country: {
+        id: favorite.countries.id,
+        name: favorite.countries.name,
+        code: favorite.countries.code,
+        flag: favorite.countries.flag,
+        continent: favorite.countries.continent,
+        data: favorite.countries.country_data ? {
+          costOfLivingIndex: favorite.countries.country_data.costOfLivingIndex,
+          averageRent: favorite.countries.country_data.averageRent,
+          safetyIndex: favorite.countries.country_data.safetyIndex,
+          healthcareIndex: favorite.countries.country_data.healthcareIndex,
+        } : null,
+      },
+    };
+
+    return NextResponse.json(transformedFavorite, { status: 201 });
   } catch (error) {
     console.error("Error adding favorite:", error);
     return NextResponse.json(

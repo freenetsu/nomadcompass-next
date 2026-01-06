@@ -1,25 +1,19 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> },
-) {
+export async function GET() {
   try {
-    const { id } = await params;
-
-    const country = await prisma.countries.findUnique({
-      where: { id },
-      include: { country_data: true,
+    const countries = await prisma.countries.findMany({
+      include: {
+        country_data: true,
+      },
+      orderBy: {
+        name: "asc",
       },
     });
 
-    if (!country) {
-      return NextResponse.json({ error: "Country not found" }, { status: 404 });
-    }
-
     // Transform data to match frontend interface (country_data -> data)
-    const transformedCountry = {
+    const transformedCountries = countries.map((country) => ({
       id: country.id,
       name: country.name,
       code: country.code,
@@ -38,11 +32,11 @@ export async function GET(
         transportIndex: country.country_data.transportIndex,
         rainfall: country.country_data.rainfall,
       } : null,
-    };
+    }));
 
-    return NextResponse.json(transformedCountry);
+    return NextResponse.json(transformedCountries);
   } catch (error) {
-    console.error("Error fetching country:", error);
+    console.error("Error fetching countries:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

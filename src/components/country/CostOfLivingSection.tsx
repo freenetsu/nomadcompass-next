@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/Card";
-import { DollarSign, Home, ShoppingCart, Coffee } from "lucide-react";
+import { DollarSign, Home, ShoppingCart } from "lucide-react";
 
 interface CostOfLivingSectionProps {
   costOfLivingIndex?: number;
@@ -81,24 +81,33 @@ export function CostOfLivingSection({
         })}
       </div>
 
-      {costOfLivingIndex && (
-        <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4">
-          <div className="flex items-start gap-3">
-            <Coffee className="mt-0.5 h-5 w-5 text-gray-900" />
-            <div>
-              <h5 className="font-medium text-gray-900">
-                Que signifient ces indices ?
-              </h5>
-              <p className="mt-1 text-sm text-gray-900">
-                Un indice de 70 signifie que le coût est 30% moins élevé qu'à
-                New York. Un indice de 120 signifie qu'il est 20% plus élevé.
-                Les données sont collectées auprès de milliers d'utilisateurs à
-                travers le monde.
-              </p>
-            </div>
-          </div>
+      <div className="mt-6 rounded-xl bg-white border border-gray-100 p-4">
+        <div className="text-sm text-gray-900">
+          <p className="font-medium text-gray-900">
+            💡 Comprendre les indices de coût
+          </p>
+          <ul className="mt-2 space-y-1.5">
+            <li>
+              • <span className="font-medium">Référence NYC = 100 :</span> New York sert de base de comparaison.
+              Un indice de 50 = 50% moins cher, un indice de 120 = 20% plus cher
+            </li>
+            <li>
+              • <span className="font-medium">Indice coût de vie :</span> Prix moyens des biens et services du quotidien
+              (alimentation, transport, loisirs)
+            </li>
+            <li>
+              • <span className="font-medium">Indice loyer :</span> Coût des logements locatifs comparé à NYC
+            </li>
+            <li>
+              • <span className="font-medium">Pouvoir d&apos;achat :</span> Capacité d&apos;achat locale en fonction des salaires moyens.
+              Plus c&apos;est élevé, plus le salaire moyen permet d&apos;acheter de biens
+            </li>
+            <li>
+              • <span className="font-medium">Source :</span> Données Numbeo.com mises à jour par des expatriés
+            </li>
+          </ul>
         </div>
-      )}
+      </div>
     </Card>
   );
 }

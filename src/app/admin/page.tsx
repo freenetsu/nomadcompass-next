@@ -12,7 +12,7 @@ export default async function AdminDashboard() {
     recentUsers,
   ] = await Promise.all([
     prisma.user.count(),
-    prisma.country.count(),
+    prisma.countries.count(),
     prisma.favorite.count(),
     prisma.userResponse.count(),
     prisma.user.findMany({

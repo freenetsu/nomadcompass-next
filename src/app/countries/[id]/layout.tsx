@@ -7,7 +7,7 @@ export async function generateMetadata({
   params: { id: string };
 }): Promise<Metadata> {
   try {
-    const country = await prisma.country.findUnique({
+    const country = await prisma.countries.findUnique({
       where: { id: params.id },
       select: { name: true, flag: true, continent: true },
     });

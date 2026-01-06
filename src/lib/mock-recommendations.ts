@@ -16,22 +16,22 @@ export function generateMockRecommendations(
     // Calculer les scores basés sur les priorités utilisateur
     const budgetScore = calculateBudgetScore(
       questionnaire.budget.budgetMensuel,
-      country.data.costOfLivingIndex,
-      country.data.averageRent,
+      country.country_data.costOfLivingIndex,
+      country.country_data.averageRent,
     );
 
     const climateScore = calculateClimateScore(
       questionnaire.climat.temperaturePreferee,
-      country.data.averageTemp,
-      country.data.climate,
+      country.country_data.averageTemp,
+      country.country_data.climate,
     );
 
-    const safetyScore = country.data.safetyIndex || 70;
-    const healthcareScore = country.data.healthcareIndex || 70;
+    const safetyScore = country.country_data.safetyIndex || 70;
+    const healthcareScore = country.country_data.healthcareIndex || 70;
 
     const lifestyleScore = calculateLifestyleScore(
       questionnaire.priorites,
-      country.data,
+      country.country_data,
     );
 
     // Score global pondéré par les priorités
@@ -85,14 +85,14 @@ export function generateMockRecommendations(
         healthcare: Math.round(healthcareScore),
         lifestyle: Math.round(lifestyleScore),
       },
-      data: {
-        costOfLivingIndex: country.data.costOfLivingIndex,
-        averageRent: country.data.averageRent,
-        averageTemp: country.data.averageTemp,
-        climate: country.data.climate,
-        safetyIndex: country.data.safetyIndex,
-        healthcareIndex: country.data.healthcareIndex,
-        pollutionIndex: country.data.pollutionIndex,
+      country_data: {
+        costOfLivingIndex: country.country_data.costOfLivingIndex,
+        averageRent: country.country_data.averageRent,
+        averageTemp: country.country_data.averageTemp,
+        climate: country.country_data.climate,
+        safetyIndex: country.country_data.safetyIndex,
+        healthcareIndex: country.country_data.healthcareIndex,
+        pollutionIndex: country.country_data.pollutionIndex,
       },
     };
   });
@@ -146,7 +146,7 @@ function calculateClimateScore(
 
 function calculateLifestyleScore(
   priorities: QuestionnaireFormData["priorites"],
-  countryData: ClaudeAnalysisInput["countries"][0]["data"],
+  countryData: ClaudeAnalysisInput["countries"][0]["country_data"],
 ): number {
   let score = 0;
   let totalWeight = 0;
@@ -252,11 +252,11 @@ function generateStrengthsWeaknesses(
   }
 
   // Points forts génériques
-  if (country.data.internetSpeed && country.data.internetSpeed > 100) {
+  if (country.country_data.internetSpeed && country.country_data.internetSpeed > 100) {
     strengths.push("Excellente connexion internet");
   }
 
-  if (country.data.transportIndex && country.data.transportIndex > 70) {
+  if (country.country_data.transportIndex && country.country_data.transportIndex > 70) {
     strengths.push("Réseau de transport bien développé");
   }
 

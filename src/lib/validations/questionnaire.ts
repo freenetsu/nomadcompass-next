@@ -4,7 +4,7 @@ import { z } from "zod";
 export const profilSchema = z.object({
   age: z.coerce
     .number()
-    .min(18, "Vous devez avoir au moins 18 ans")
+    .min(16, "Vous devez avoir au moins 16 ans")
     .max(100, "Age invalide"),
   situation: z.enum(["celibataire", "couple", "famille"], {
     message: "Veuillez sélectionner votre situation familiale",

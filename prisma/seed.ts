@@ -6,16 +6,18 @@ async function main() {
   console.log("🌱 Seeding database...");
 
   // Créer les pays
-  const portugal = await prisma.country.upsert({
+  const portugal = await prisma.countries.upsert({
     where: { code: "PT" },
     update: {},
     create: {
+      id: "PT",
       name: "Portugal",
       code: "PT",
       flag: "🇵🇹",
       continent: "Europe",
-      data: {
+      country_data: {
         create: {
+          id: "PT_data",
           costOfLivingIndex: 65.5,
           averageRent: 800,
           averageSalary: 1200,
@@ -34,16 +36,18 @@ async function main() {
     },
   });
 
-  const spain = await prisma.country.upsert({
+  const spain = await prisma.countries.upsert({
     where: { code: "ES" },
     update: {},
     create: {
+      id: "ES",
       name: "Espagne",
       code: "ES",
       flag: "🇪🇸",
       continent: "Europe",
-      data: {
+      country_data: {
         create: {
+          id: "ES_data",
           costOfLivingIndex: 68.2,
           averageRent: 900,
           averageSalary: 1400,
@@ -62,16 +66,18 @@ async function main() {
     },
   });
 
-  const thailand = await prisma.country.upsert({
+  const thailand = await prisma.countries.upsert({
     where: { code: "TH" },
     update: {},
     create: {
+      id: "TH",
       name: "Thaïlande",
       code: "TH",
       flag: "🇹🇭",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "TH_data",
           costOfLivingIndex: 45.8,
           averageRent: 400,
           averageSalary: 600,
@@ -90,16 +96,18 @@ async function main() {
     },
   });
 
-  const mexico = await prisma.country.upsert({
+  const mexico = await prisma.countries.upsert({
     where: { code: "MX" },
     update: {},
     create: {
+      id: "MX",
       name: "Mexique",
       code: "MX",
       flag: "🇲🇽",
       continent: "Amérique du Nord",
-      data: {
+      country_data: {
         create: {
+          id: "MX_data",
           costOfLivingIndex: 52.3,
           averageRent: 500,
           averageSalary: 700,
@@ -118,16 +126,18 @@ async function main() {
     },
   });
 
-  const canada = await prisma.country.upsert({
+  const canada = await prisma.countries.upsert({
     where: { code: "CA" },
     update: {},
     create: {
+      id: "CA",
       name: "Canada",
       code: "CA",
       flag: "🇨🇦",
       continent: "Amérique du Nord",
-      data: {
+      country_data: {
         create: {
+          id: "CA_data",
           costOfLivingIndex: 78.5,
           averageRent: 1400,
           averageSalary: 3200,
@@ -146,16 +156,18 @@ async function main() {
     },
   });
 
-  const china = await prisma.country.upsert({
+  const china = await prisma.countries.upsert({
     where: { code: "CN" },
     update: {},
     create: {
+      id: "CN",
       name: "Chine",
       code: "CN",
       flag: "🇨🇳",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "CN_data",
           costOfLivingIndex: 55.2,
           averageRent: 650,
           averageSalary: 1200,
@@ -174,16 +186,18 @@ async function main() {
     },
   });
 
-  const indonesia = await prisma.country.upsert({
+  const indonesia = await prisma.countries.upsert({
     where: { code: "ID" },
     update: {},
     create: {
+      id: "ID",
       name: "Indonésie",
       code: "ID",
       flag: "🇮🇩",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "ID_data",
           costOfLivingIndex: 42.5,
           averageRent: 350,
           averageSalary: 500,
@@ -202,16 +216,18 @@ async function main() {
     },
   });
 
-  const uae = await prisma.country.upsert({
+  const uae = await prisma.countries.upsert({
     where: { code: "AE" },
     update: {},
     create: {
+      id: "AE",
       name: "Émirats Arabes Unis",
       code: "AE",
       flag: "🇦🇪",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "AE_data",
           costOfLivingIndex: 72.8,
           averageRent: 1200,
           averageSalary: 3500,
@@ -230,16 +246,18 @@ async function main() {
     },
   });
 
-  const qatar = await prisma.country.upsert({
+  const qatar = await prisma.countries.upsert({
     where: { code: "QA" },
     update: {},
     create: {
+      id: "QA",
       name: "Qatar",
       code: "QA",
       flag: "🇶🇦",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "QA_data",
           costOfLivingIndex: 76.5,
           averageRent: 1400,
           averageSalary: 4200,
@@ -258,16 +276,18 @@ async function main() {
     },
   });
 
-  const saudiArabia = await prisma.country.upsert({
+  const saudiArabia = await prisma.countries.upsert({
     where: { code: "SA" },
     update: {},
     create: {
+      id: "SA",
       name: "Arabie Saoudite",
       code: "SA",
       flag: "🇸🇦",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "SA_data",
           costOfLivingIndex: 65.8,
           averageRent: 900,
           averageSalary: 3800,
@@ -286,16 +306,18 @@ async function main() {
     },
   });
 
-  const bahrain = await prisma.country.upsert({
+  const bahrain = await prisma.countries.upsert({
     where: { code: "BH" },
     update: {},
     create: {
+      id: "BH",
       name: "Bahreïn",
       code: "BH",
       flag: "🇧🇭",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "BH_data",
           costOfLivingIndex: 68.5,
           averageRent: 750,
           averageSalary: 2800,
@@ -314,16 +336,18 @@ async function main() {
     },
   });
 
-  const oman = await prisma.country.upsert({
+  const oman = await prisma.countries.upsert({
     where: { code: "OM" },
     update: {},
     create: {
+      id: "OM",
       name: "Oman",
       code: "OM",
       flag: "🇴🇲",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "OM_data",
           costOfLivingIndex: 62.3,
           averageRent: 650,
           averageSalary: 2500,
@@ -342,16 +366,18 @@ async function main() {
     },
   });
 
-  const kuwait = await prisma.country.upsert({
+  const kuwait = await prisma.countries.upsert({
     where: { code: "KW" },
     update: {},
     create: {
+      id: "KW",
       name: "Koweït",
       code: "KW",
       flag: "🇰🇼",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "KW_data",
           costOfLivingIndex: 64.8,
           averageRent: 800,
           averageSalary: 3200,
@@ -370,16 +396,18 @@ async function main() {
     },
   });
 
-  const vietnam = await prisma.country.upsert({
+  const vietnam = await prisma.countries.upsert({
     where: { code: "VN" },
     update: {},
     create: {
+      id: "VN",
       name: "Vietnam",
       code: "VN",
       flag: "🇻🇳",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "VN_data",
           costOfLivingIndex: 38.5,
           averageRent: 300,
           averageSalary: 450,
@@ -398,16 +426,18 @@ async function main() {
     },
   });
 
-  const singapore = await prisma.country.upsert({
+  const singapore = await prisma.countries.upsert({
     where: { code: "SG" },
     update: {},
     create: {
+      id: "SG",
       name: "Singapour",
       code: "SG",
       flag: "🇸🇬",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "SG_data",
           costOfLivingIndex: 85.2,
           averageRent: 2200,
           averageSalary: 4500,
@@ -426,16 +456,18 @@ async function main() {
     },
   });
 
-  const malaysia = await prisma.country.upsert({
+  const malaysia = await prisma.countries.upsert({
     where: { code: "MY" },
     update: {},
     create: {
+      id: "MY",
       name: "Malaisie",
       code: "MY",
       flag: "🇲🇾",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "MY_data",
           costOfLivingIndex: 44.8,
           averageRent: 420,
           averageSalary: 800,
@@ -454,16 +486,18 @@ async function main() {
     },
   });
 
-  const philippines = await prisma.country.upsert({
+  const philippines = await prisma.countries.upsert({
     where: { code: "PH" },
     update: {},
     create: {
+      id: "PH",
       name: "Philippines",
       code: "PH",
       flag: "🇵🇭",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "PH_data",
           costOfLivingIndex: 40.2,
           averageRent: 320,
           averageSalary: 480,
@@ -482,16 +516,18 @@ async function main() {
     },
   });
 
-  const japan = await prisma.country.upsert({
+  const japan = await prisma.countries.upsert({
     where: { code: "JP" },
     update: {},
     create: {
+      id: "JP",
       name: "Japon",
       code: "JP",
       flag: "🇯🇵",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "JP_data",
           costOfLivingIndex: 82.5,
           averageRent: 1100,
           averageSalary: 3200,
@@ -510,16 +546,18 @@ async function main() {
     },
   });
 
-  const southKorea = await prisma.country.upsert({
+  const southKorea = await prisma.countries.upsert({
     where: { code: "KR" },
     update: {},
     create: {
+      id: "KR",
       name: "Corée du Sud",
       code: "KR",
       flag: "🇰🇷",
       continent: "Asie",
-      data: {
+      country_data: {
         create: {
+          id: "KR_data",
           costOfLivingIndex: 75.8,
           averageRent: 950,
           averageSalary: 2800,
@@ -538,16 +576,18 @@ async function main() {
     },
   });
 
-  const greece = await prisma.country.upsert({
+  const greece = await prisma.countries.upsert({
     where: { code: "GR" },
     update: {},
     create: {
+      id: "GR",
       name: "Grèce",
       code: "GR",
       flag: "🇬🇷",
       continent: "Europe",
-      data: {
+      country_data: {
         create: {
+          id: "GR_data",
           costOfLivingIndex: 62.8,
           averageRent: 650,
           averageSalary: 1100,
@@ -566,16 +606,18 @@ async function main() {
     },
   });
 
-  const italy = await prisma.country.upsert({
+  const italy = await prisma.countries.upsert({
     where: { code: "IT" },
     update: {},
     create: {
+      id: "IT",
       name: "Italie",
       code: "IT",
       flag: "🇮🇹",
       continent: "Europe",
-      data: {
+      country_data: {
         create: {
+          id: "IT_data",
           costOfLivingIndex: 71.5,
           averageRent: 850,
           averageSalary: 1600,

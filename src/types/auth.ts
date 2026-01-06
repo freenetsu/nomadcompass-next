@@ -32,12 +32,10 @@ declare module "next-auth" {
     name?: string | null;
     image?: string | null;
   }
-}
 
-/**
- * Extension du module JWT pour typer les tokens
- */
-declare module "next-auth/jwt" {
+  /**
+   * Extension du JWT pour typer les tokens (NextAuth v5)
+   */
   interface JWT {
     id: string;
     role: UserRole;

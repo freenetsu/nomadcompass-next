@@ -1,16 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Globe, TrendingUp, Target } from "lucide-react";
+import { ArrowLeft, Globe, TrendingUp, Target, Info, HelpCircle } from "lucide-react";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { RecommendationCard } from "@/components/dashboard/RecommendationCard";
 import { ComparisonChart } from "@/components/dashboard/ComparisonChart";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui";
 import { Skeleton, SkeletonCard } from "@/components/ui/Skeleton";
+import { useState } from "react";
 
 export default function DashboardPage() {
   const { recommendations, isLoading, error } = useRecommendations();
+  const [showHelp, setShowHelp] = useState(false);
 
   // État de chargement
   if (isLoading) {
@@ -124,7 +126,7 @@ export default function DashboardPage() {
                   Vos Recommandations
                 </h1>
                 <p className="mt-1 text-sm text-gray-900">
-                  {countries.length} pays analysés selon votre profil
+                  Top 10 sur {countries.length} pays analysés selon votre profil
                 </p>
               </div>
             </div>
@@ -200,6 +202,73 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Section d'aide méthodologie */}
+        <div className="mb-8">
+          <button
+            onClick={() => setShowHelp(!showHelp)}
+            className="flex w-full items-center justify-between rounded-xl border border-blue-200 bg-blue-50 p-4 text-left transition-colors hover:bg-blue-100"
+          >
+            <div className="flex items-center gap-3">
+              <HelpCircle className="h-5 w-5 text-blue-600" />
+              <span className="font-medium text-blue-900">
+                Comment sont calculés les scores ?
+              </span>
+            </div>
+            <span className="text-blue-600">
+              {showHelp ? "Masquer" : "Afficher"}
+            </span>
+          </button>
+
+          {showHelp && (
+            <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6">
+              <div className="space-y-4">
+                <div>
+                  <h3 className="flex items-center gap-2 font-semibold text-gray-900">
+                    <Info className="h-5 w-5 text-brand-500" />
+                    Méthodologie de scoring
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-900">
+                    Nos recommandations combinent des données réelles avec vos préférences personnelles
+                    pour vous proposer les destinations les plus adaptées.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+                    <h4 className="font-medium text-gray-900">Score global (/100)</h4>
+                    <p className="mt-1 text-sm text-gray-900">
+                      Calculé par intelligence artificielle (Claude) en fonction de TOUTES vos priorités.
+                      Pondère chaque critère selon l&apos;importance que vous lui avez donnée (1-5).
+                    </p>
+                  </div>
+
+                  <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+                    <h4 className="font-medium text-gray-900">Scores par catégorie (/100)</h4>
+                    <ul className="mt-2 space-y-1 text-sm text-gray-900">
+                      <li>• <span className="font-medium">Budget :</span> Compare le coût de vie du pays avec votre budget mensuel</li>
+                      <li>• <span className="font-medium">Climat :</span> Évalue la météo selon vos préférences (température, saison)</li>
+                      <li>• <span className="font-medium">Sécurité :</span> Utilise l&apos;indice de sécurité Numbeo (données réelles d&apos;expatriés)</li>
+                      <li>• <span className="font-medium">Santé :</span> Utilise l&apos;indice de qualité du système de santé Numbeo</li>
+                      <li>• <span className="font-medium">Vie :</span> Combine culture, environnement et transport selon vos priorités</li>
+                    </ul>
+                  </div>
+
+                  <div className="rounded-lg border border-gray-100 bg-gray-50 p-4">
+                    <h4 className="font-medium text-gray-900">Source des données</h4>
+                    <p className="mt-1 text-sm text-gray-900">
+                      Les indices de coût, sécurité, santé et pollution proviennent de{" "}
+                      <a href="https://www.numbeo.com" target="_blank" rel="noopener noreferrer" className="font-medium text-brand-500 hover:text-brand-600">
+                        Numbeo.com
+                      </a>, la plus grande base de données collaborative au monde alimentée par
+                      des milliers d&apos;expatriés et voyageurs.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Graphique de comparaison */}
         {countries.length >= 2 && (
           <Card
@@ -233,10 +302,10 @@ export default function DashboardPage() {
         {/* Liste des recommandations */}
         <div className="mb-8">
           <h2 className="mb-6 text-xl font-bold text-gray-900">
-            Tous les pays recommandés
+            Top 10 des pays recommandés
           </h2>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {countries.map((country, index) => (
+            {countries.slice(0, 10).map((country, index) => (
               <RecommendationCard
                 key={country.countryId}
                 recommendation={country}
