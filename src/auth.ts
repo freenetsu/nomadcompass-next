@@ -30,6 +30,22 @@ export const {
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
+  // Explicit cookie configuration for Vercel
+  cookies: {
+    sessionToken: {
+      name:
+        process.env.NODE_ENV === "production"
+          ? "__Secure-authjs.session-token"
+          : "authjs.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
+
   callbacks: {
     /**
      * JWT callback - called when creating or updating a JWT
@@ -38,6 +54,7 @@ export const {
     async jwt({ token, user, account }) {
       // Initial sign in - user object is available
       if (user) {
+        console.log("🔑 [JWT] Creating token for user:", user.email);
         token.id = user.id;
         token.email = user.email;
         token.role = (user as any).role || "user";
@@ -45,6 +62,7 @@ export const {
 
       // OAuth tokens from provider
       if (account?.access_token) {
+        console.log("🔑 [JWT] Saving OAuth tokens");
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
       }
@@ -71,13 +89,19 @@ export const {
      * Return true to allow, false to deny
      * IMPORTANT: Also creates/updates user in database to avoid foreign key errors
      */
-    async signIn({ user }) {
+    async signIn({ user, account, profile }) {
+      console.log("🔐 [SIGNIN] Callback triggered");
+      console.log("  - User:", user.email);
+      console.log("  - Provider:", account?.provider);
+
       // Require email for all sign-ins
       if (!user.email) {
+        console.error("  ❌ No email provided, denying sign-in");
         return false;
       }
 
       try {
+        console.log("  📝 Attempting to save user to database...");
         // Ensure user exists in database (upsert)
         // This prevents foreign key constraint errors when saving questionnaire responses
         const dbUser = await prisma.user.upsert({
@@ -98,6 +122,7 @@ export const {
         // Update the user.id to match the database ID
         user.id = dbUser.id;
 
+        console.log("  ✅ User saved successfully:", dbUser.id);
         return true;
       } catch (error) {
         console.error("  ❌ Error saving user to database:", error);
@@ -127,6 +152,6 @@ export const {
 
   events: {},
 
-  // Enable debug in development
-  debug: process.env.NODE_ENV === "development",
+  // Enable debug in development OR if AUTH_DEBUG is set
+  debug: process.env.NODE_ENV === "development" || process.env.AUTH_DEBUG === "true",
 });
