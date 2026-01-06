@@ -19,8 +19,8 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
-  // Note: PrismaAdapter commented out due to type incompatibility
-  // Users are created/updated in the signIn callback below
+  // Note: PrismaAdapter commented out due to type incompatibility with custom role field
+  // Users and accounts are created/updated in the signIn callback below
   // adapter: PrismaAdapter(prisma),
 
   // JWT session strategy (required for Edge runtime compatibility)
@@ -71,7 +71,7 @@ export const {
     /**
      * SignIn callback - control who can sign in
      * Return true to allow, false to deny
-     * IMPORTANT: Also creates/updates user in database to avoid foreign key errors
+     * IMPORTANT: Also creates/updates user AND account in database
      */
     async signIn({ user, account, profile }) {
       console.log("🔐 [SIGNIN] Callback triggered");
@@ -86,8 +86,8 @@ export const {
 
       try {
         console.log("  📝 Attempting to save user to database...");
+
         // Ensure user exists in database (upsert)
-        // This prevents foreign key constraint errors when saving questionnaire responses
         const dbUser = await prisma.user.upsert({
           where: { email: user.email },
           update: {
@@ -105,11 +105,47 @@ export const {
 
         // Update the user.id to match the database ID
         user.id = dbUser.id;
-
         console.log("  ✅ User saved successfully:", dbUser.id);
+
+        // Save OAuth account link (required for OAuth to work properly)
+        if (account) {
+          console.log("  📝 Saving OAuth account link...");
+          await prisma.account.upsert({
+            where: {
+              provider_providerAccountId: {
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+              },
+            },
+            update: {
+              access_token: account.access_token as string | null,
+              expires_at: account.expires_at as number | null,
+              id_token: account.id_token as string | null,
+              refresh_token: account.refresh_token as string | null,
+              scope: account.scope as string | null,
+              session_state: account.session_state as string | null,
+              token_type: account.token_type as string | null,
+            },
+            create: {
+              userId: dbUser.id,
+              type: account.type,
+              provider: account.provider,
+              providerAccountId: account.providerAccountId,
+              access_token: account.access_token as string | null,
+              expires_at: account.expires_at as number | null,
+              id_token: account.id_token as string | null,
+              refresh_token: account.refresh_token as string | null,
+              scope: account.scope as string | null,
+              session_state: account.session_state as string | null,
+              token_type: account.token_type as string | null,
+            },
+          });
+          console.log("  ✅ OAuth account link saved");
+        }
+
         return true;
       } catch (error) {
-        console.error("  ❌ Error saving user to database:", error);
+        console.error("  ❌ Error saving user/account to database:", error);
         // Still allow sign-in even if database save fails
         return true;
       }
