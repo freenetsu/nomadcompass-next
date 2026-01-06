@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowLeft, X, Search } from "lucide-react";
 import { Input, Badge } from "@/components/ui";
@@ -11,30 +11,51 @@ interface Country {
   name: string;
   flag: string;
   code: string;
+  data?: {
+    costOfLivingIndex?: number;
+    safetyIndex?: number;
+    healthcareIndex?: number;
+    climate?: string;
+    internetSpeed?: number;
+    transportIndex?: number;
+  } | null;
 }
 
-const MOCK_COUNTRIES: Country[] = [
-  { id: "portugal", name: "Portugal", flag: "🇵🇹", code: "PT" },
-  { id: "espagne", name: "Espagne", flag: "🇪🇸", code: "ES" },
-  { id: "thailande", name: "Thaïlande", flag: "🇹🇭", code: "TH" },
-  { id: "mexique", name: "Mexique", flag: "🇲🇽", code: "MX" },
-  { id: "grece", name: "Grèce", flag: "🇬🇷", code: "GR" },
-];
-
 const CRITERIA = [
-  { key: "costOfLiving", label: "Coût de vie" },
-  { key: "safety", label: "Sécurité" },
-  { key: "healthcare", label: "Santé" },
+  { key: "costOfLivingIndex", label: "Coût de vie" },
+  { key: "safetyIndex", label: "Sécurité" },
+  { key: "healthcareIndex", label: "Santé" },
   { key: "climate", label: "Climat" },
-  { key: "internet", label: "Internet" },
-  { key: "transport", label: "Transport" },
+  { key: "internetSpeed", label: "Internet" },
+  { key: "transportIndex", label: "Transport" },
 ];
 
 export default function ComparePage() {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedCountries, setSelectedCountries] = useState<Country[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredCountries = MOCK_COUNTRIES.filter(
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/countries");
+        if (response.ok) {
+          const data = await response.json();
+          setCountries(data);
+        }
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
+  const filteredCountries = countries.filter(
     (country) =>
       country.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
       !selectedCountries.find((c) => c.id === country.id),
@@ -79,26 +100,28 @@ export default function ComparePage() {
           className="mb-8"
         >
           <div className="space-y-4">
-            <div className="mb-4">
-              <p className="text-sm text-gray-900 mb-3">
-                Pays disponibles pour comparaison :
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {MOCK_COUNTRIES.filter(
-                  (country) => !selectedCountries.find((c) => c.id === country.id)
-                ).map((country) => (
-                  <button
-                    key={country.id}
-                    onClick={() => addCountry(country)}
-                    disabled={selectedCountries.length >= 3}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-900 bg-ocean-50 rounded-full transition-colors hover:bg-brand-50 hover:text-brand-500 disabled:opacity-50 disabled:cursor-not-allowed border border-ocean-200"
-                  >
-                    <span>{country.flag}</span>
-                    <span>{country.name}</span>
-                  </button>
-                ))}
+            {!isLoading && countries.length > 0 && (
+              <div className="mb-4">
+                <p className="text-sm text-gray-900 mb-3">
+                  Pays disponibles pour comparaison :
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {countries.filter(
+                    (country) => !selectedCountries.find((c) => c.id === country.id)
+                  ).slice(0, 10).map((country) => (
+                    <button
+                      key={country.id}
+                      onClick={() => addCountry(country)}
+                      disabled={selectedCountries.length >= 3}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-900 bg-ocean-50 rounded-full transition-colors hover:bg-brand-50 hover:text-brand-500 disabled:opacity-50 disabled:cursor-not-allowed border border-ocean-200"
+                    >
+                      <span>{country.flag}</span>
+                      <span>{country.name}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             <div className="relative">
               <Input
@@ -181,26 +204,41 @@ export default function ComparePage() {
                     <td className="px-4 py-4 text-sm font-medium text-gray-900">
                       {criterion.label}
                     </td>
-                    {selectedCountries.map((country) => (
-                      <td
-                        key={`${country.id}-${criterion.key}`}
-                        className="px-4 py-4 text-center"
-                      >
-                        <div className="flex flex-col items-center gap-2">
-                          <div className="h-2 w-full max-w-[100px] overflow-hidden rounded-full bg-gray-200">
-                            <div
-                              className="h-full bg-gradient-to-r from-brand-500 to-brand-600 transition-all"
-                              style={{
-                                width: `${Math.floor(Math.random() * 40 + 60)}%`,
-                              }}
-                            />
-                          </div>
-                          <span className="text-sm font-semibold text-gray-900">
-                            {Math.floor(Math.random() * 40 + 60)}/100
-                          </span>
-                        </div>
-                      </td>
-                    ))}
+                    {selectedCountries.map((country) => {
+                      const value = criterion.key === "climate"
+                        ? country.data?.climate || "N/A"
+                        : country.data?.[criterion.key as keyof typeof country.data];
+                      const numericValue = typeof value === "number" ? value : null;
+
+                      return (
+                        <td
+                          key={`${country.id}-${criterion.key}`}
+                          className="px-4 py-4 text-center"
+                        >
+                          {criterion.key === "climate" ? (
+                            <span className="text-sm font-semibold text-gray-900">
+                              {value}
+                            </span>
+                          ) : numericValue !== null ? (
+                            <div className="flex flex-col items-center gap-2">
+                              <div className="h-2 w-full max-w-[100px] overflow-hidden rounded-full bg-gray-200">
+                                <div
+                                  className="h-full bg-gradient-to-r from-brand-500 to-brand-600 transition-all"
+                                  style={{
+                                    width: `${Math.min(100, numericValue)}%`,
+                                  }}
+                                />
+                              </div>
+                              <span className="text-sm font-semibold text-gray-900">
+                                {numericValue.toFixed(0)}/100
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-sm text-gray-400">N/A</span>
+                          )}
+                        </td>
+                      );
+                    })}
                   </tr>
                 ))}
               </tbody>

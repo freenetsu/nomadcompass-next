@@ -1,97 +1,27 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { Search, ArrowUpDown, Globe } from "lucide-react";
 import { Input, Select, Badge } from "@/components/ui";
 import { Card } from "@/components/ui/Card";
+import { Skeleton, SkeletonCard } from "@/components/ui/Skeleton";
 
 interface Country {
   id: string;
   name: string;
   flag: string;
   continent: string;
-  costOfLiving: number;
-  safety: number;
-  climate: string;
+  data?: {
+    costOfLivingIndex?: number;
+    safetyIndex?: number;
+    climate?: string;
+  } | null;
 }
 
-const MOCK_COUNTRIES: Country[] = [
-  {
-    id: "portugal",
-    name: "Portugal",
-    flag: "🇵🇹",
-    continent: "Europe",
-    costOfLiving: 65,
-    safety: 85,
-    climate: "Méditerranéen",
-  },
-  {
-    id: "espagne",
-    name: "Espagne",
-    flag: "🇪🇸",
-    continent: "Europe",
-    costOfLiving: 70,
-    safety: 80,
-    climate: "Méditerranéen",
-  },
-  {
-    id: "thailande",
-    name: "Thaïlande",
-    flag: "🇹🇭",
-    continent: "Asia",
-    costOfLiving: 45,
-    safety: 70,
-    climate: "Tropical",
-  },
-  {
-    id: "mexique",
-    name: "Mexique",
-    flag: "🇲🇽",
-    continent: "Americas",
-    costOfLiving: 50,
-    safety: 65,
-    climate: "Tropical",
-  },
-  {
-    id: "grece",
-    name: "Grèce",
-    flag: "🇬🇷",
-    continent: "Europe",
-    costOfLiving: 68,
-    safety: 82,
-    climate: "Méditerranéen",
-  },
-  {
-    id: "vietnam",
-    name: "Vietnam",
-    flag: "🇻🇳",
-    continent: "Asia",
-    costOfLiving: 40,
-    safety: 75,
-    climate: "Tropical",
-  },
-  {
-    id: "croatie",
-    name: "Croatie",
-    flag: "🇭🇷",
-    continent: "Europe",
-    costOfLiving: 62,
-    safety: 88,
-    climate: "Méditerranéen",
-  },
-  {
-    id: "colombie",
-    name: "Colombie",
-    flag: "🇨🇴",
-    continent: "Americas",
-    costOfLiving: 48,
-    safety: 68,
-    climate: "Tropical",
-  },
-];
-
 export default function CountriesPage() {
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [continentFilter, setContinentFilter] = useState("all");
   const [sortBy, setSortBy] = useState<"name" | "costOfLiving" | "safety">(
@@ -99,13 +29,32 @@ export default function CountriesPage() {
   );
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/countries");
+        if (response.ok) {
+          const data = await response.json();
+          setCountries(data);
+        }
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
+
   const continents = [
     "all",
-    ...Array.from(new Set(MOCK_COUNTRIES.map((c) => c.continent))),
+    ...Array.from(new Set(countries.map((c) => c.continent))),
   ];
 
   const filteredAndSortedCountries = useMemo(() => {
-    const result = MOCK_COUNTRIES.filter((country) => {
+    const result = countries.filter((country) => {
       const matchesSearch = country.name
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
@@ -118,18 +67,48 @@ export default function CountriesPage() {
       let comparison = 0;
       if (sortBy === "name") {
         comparison = a.name.localeCompare(b.name);
-      } else {
-        comparison = a[sortBy] - b[sortBy];
+      } else if (sortBy === "costOfLiving") {
+        const aValue = a.data?.costOfLivingIndex ?? 0;
+        const bValue = b.data?.costOfLivingIndex ?? 0;
+        comparison = aValue - bValue;
+      } else if (sortBy === "safety") {
+        const aValue = a.data?.safetyIndex ?? 0;
+        const bValue = b.data?.safetyIndex ?? 0;
+        comparison = aValue - bValue;
       }
       return sortOrder === "asc" ? comparison : -comparison;
     });
 
     return result;
-  }, [searchQuery, continentFilter, sortBy, sortOrder]);
+  }, [countries, searchQuery, continentFilter, sortBy, sortOrder]);
 
   const toggleSortOrder = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-ocean-50">
+        <header className="border-b border-ocean-200 bg-white shadow-sm">
+          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <Skeleton className="h-8 w-48" />
+            <Skeleton className="mt-2 h-4 w-32" />
+          </div>
+        </header>
+        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <SkeletonCard />
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-ocean-50">
@@ -222,48 +201,54 @@ export default function CountriesPage() {
                 </div>
 
                 <div className="mt-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-900">
-                      Coût de vie
-                    </span>
-                    <Badge
-                      color={
-                        country.costOfLiving < 50
-                          ? "success"
-                          : country.costOfLiving < 70
-                            ? "warning"
-                            : "error"
-                      }
-                      size="sm"
-                    >
-                      {country.costOfLiving}/100
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-900">
-                      Sécurité
-                    </span>
-                    <Badge
-                      color={
-                        country.safety > 80
-                          ? "success"
-                          : country.safety > 70
-                            ? "warning"
-                            : "error"
-                      }
-                      size="sm"
-                    >
-                      {country.safety}/100
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-gray-900">
-                      Climat
-                    </span>
-                    <span className="text-xs font-medium text-gray-900">
-                      {country.climate}
-                    </span>
-                  </div>
+                  {country.data?.costOfLivingIndex !== undefined && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-900">
+                        Coût de vie
+                      </span>
+                      <Badge
+                        color={
+                          country.data.costOfLivingIndex < 50
+                            ? "success"
+                            : country.data.costOfLivingIndex < 70
+                              ? "warning"
+                              : "error"
+                        }
+                        size="sm"
+                      >
+                        {country.data.costOfLivingIndex.toFixed(0)}/100
+                      </Badge>
+                    </div>
+                  )}
+                  {country.data?.safetyIndex !== undefined && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-900">
+                        Sécurité
+                      </span>
+                      <Badge
+                        color={
+                          country.data.safetyIndex > 80
+                            ? "success"
+                            : country.data.safetyIndex > 70
+                              ? "warning"
+                              : "error"
+                        }
+                        size="sm"
+                      >
+                        {country.data.safetyIndex.toFixed(0)}/100
+                      </Badge>
+                    </div>
+                  )}
+                  {country.data?.climate && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-900">
+                        Climat
+                      </span>
+                      <span className="text-xs font-medium text-gray-900">
+                        {country.data.climate}
+                      </span>
+                    </div>
+                  )}
                 </div>
               </Link>
             ))}

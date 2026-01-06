@@ -22,7 +22,7 @@ export function Select({
   return (
     <div className="w-full">
       {label && (
-        <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="mb-2 block text-sm font-medium text-gray-700">
           {label}
         </label>
       )}
@@ -33,9 +33,9 @@ export function Select({
             "focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2",
             "hover:border-gray-400 cursor-pointer",
             error
-              ? "border-error-300 bg-error-50 dark:border-error-700 dark:bg-error-900/10"
-              : "border-gray-300 bg-white dark:border-gray-700 dark:bg-gray-800",
-            "dark:text-white",
+              ? "border-error-300 bg-error-50"
+              : "border-gray-300 bg-white",
+            "text-gray-900",
             className,
           )}
           {...props}
