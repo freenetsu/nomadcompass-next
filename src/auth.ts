@@ -135,18 +135,27 @@ export const {
      * Redirect callback - control post-login redirect
      */
     async redirect({ url, baseUrl }) {
+      console.log("🔀 [REDIRECT] Called");
+      console.log("  - url:", url);
+      console.log("  - baseUrl:", baseUrl);
+
       // Allows relative callback URLs
       if (url.startsWith("/")) {
-        return `${baseUrl}${url}`;
+        const redirectUrl = `${baseUrl}${url}`;
+        console.log("  ✅ Redirecting to:", redirectUrl);
+        return redirectUrl;
       }
 
       // Allows callback URLs on the same origin
       if (new URL(url).origin === baseUrl) {
+        console.log("  ✅ Same origin, redirecting to:", url);
         return url;
       }
 
       // Default to home page
-      return `${baseUrl}/home`;
+      const defaultUrl = `${baseUrl}/home`;
+      console.log("  ✅ Default redirect to:", defaultUrl);
+      return defaultUrl;
     },
   },
 
