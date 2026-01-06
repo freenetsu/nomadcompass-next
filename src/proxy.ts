@@ -1,12 +1,14 @@
-import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 /**
- * Middleware de protection des routes authentifiées
- * Compatible avec database sessions (utilise auth() au lieu de getToken())
+ * Proxy de protection des routes authentifiées (Next.js 16+ convention)
+ * Utilise getToken() au lieu de auth() pour réduire la taille du bundle Edge
+ *
+ * Cette approche légère permet de rester sous la limite de 1MB des Edge Functions
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Liste des routes protégées
@@ -26,17 +28,21 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
   if (isProtectedRoute) {
-    const session = await auth();
+    // Utiliser getToken() au lieu de auth() - beaucoup plus léger
+    const token = await getToken({
+      req: request,
+      secret: process.env.AUTH_SECRET
+    });
 
     // Pas connecté : redirection vers signin
-    if (!session?.user) {
+    if (!token) {
       const url = new URL("/auth/signin", request.url);
       url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);
     }
 
     // Connecté mais pas admin (seulement pour /admin)
-    if (pathname.startsWith("/admin") && session.user.role !== "admin") {
+    if (pathname.startsWith("/admin") && token.role !== "admin") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
