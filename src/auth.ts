@@ -1,7 +1,9 @@
 import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 import { authConfig } from "@/lib/auth.config";
 import type { UserRole } from "@/types/auth";
+import type { Adapter } from "next-auth/adapters";
 
 /**
  * Main Auth.js configuration with Prisma adapter and JWT sessions
@@ -19,61 +21,38 @@ export const {
   signOut,
 } = NextAuth({
   ...authConfig,
-  // Note: PrismaAdapter commented out due to type incompatibility with custom role field
-  // Users and accounts are created/updated in the signIn callback below
-  // adapter: PrismaAdapter(prisma),
 
-  // JWT session strategy (required for Edge runtime compatibility)
+  // PrismaAdapter for database sessions (type cast to bypass role field incompatibility)
+  adapter: PrismaAdapter(prisma) as Adapter,
+
+  // Database session strategy - more reliable for OAuth on Vercel
   session: {
-    strategy: "jwt",
+    strategy: "database",
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
   callbacks: {
     /**
-     * JWT callback - called when creating or updating a JWT
-     * This runs on every request when using JWT sessions
-     */
-    async jwt({ token, user, account }) {
-      // Initial sign in - user object is available
-      if (user) {
-        console.log("🔑 [JWT] Creating token for user:", user.email);
-        token.id = user.id;
-        token.email = user.email;
-        token.role = (user as any).role || "user";
-      }
-
-      // OAuth tokens from provider
-      if (account?.access_token) {
-        console.log("🔑 [JWT] Saving OAuth tokens");
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
-      }
-
-      return token;
-    },
-
-    /**
      * Session callback - controls what data is exposed to the client
-     * This runs on every getSession() or useSession() call
+     * With database sessions, we get the user from the database
      */
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-        session.user.email = token.email as string;
-        session.user.role = (token.role as UserRole) || "user";
+    async session({ session, user }) {
+      console.log("📋 [SESSION] Callback triggered for:", user?.email);
+      if (session.user && user) {
+        session.user.id = user.id;
+        session.user.email = user.email!;
+        session.user.role = ((user as any).role as UserRole) || "user";
       }
-
       return session;
     },
 
     /**
      * SignIn callback - control who can sign in
      * Return true to allow, false to deny
-     * IMPORTANT: Also creates/updates user AND account in database
+     * Note: PrismaAdapter handles user/account creation automatically
      */
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       console.log("🔐 [SIGNIN] Callback triggered");
       console.log("  - User:", user.email);
       console.log("  - Provider:", account?.provider);
@@ -84,71 +63,8 @@ export const {
         return false;
       }
 
-      try {
-        console.log("  📝 Attempting to save user to database...");
-
-        // Ensure user exists in database (upsert)
-        const dbUser = await prisma.user.upsert({
-          where: { email: user.email },
-          update: {
-            name: user.name,
-            image: user.image,
-          },
-          create: {
-            id: user.id || undefined,
-            email: user.email,
-            name: user.name,
-            image: user.image,
-            role: "user",
-          },
-        });
-
-        // Update the user.id to match the database ID
-        user.id = dbUser.id;
-        console.log("  ✅ User saved successfully:", dbUser.id);
-
-        // Save OAuth account link (required for OAuth to work properly)
-        if (account) {
-          console.log("  📝 Saving OAuth account link...");
-          await prisma.account.upsert({
-            where: {
-              provider_providerAccountId: {
-                provider: account.provider,
-                providerAccountId: account.providerAccountId,
-              },
-            },
-            update: {
-              access_token: account.access_token as string | null,
-              expires_at: account.expires_at as number | null,
-              id_token: account.id_token as string | null,
-              refresh_token: account.refresh_token as string | null,
-              scope: account.scope as string | null,
-              session_state: account.session_state as string | null,
-              token_type: account.token_type as string | null,
-            },
-            create: {
-              userId: dbUser.id,
-              type: account.type,
-              provider: account.provider,
-              providerAccountId: account.providerAccountId,
-              access_token: account.access_token as string | null,
-              expires_at: account.expires_at as number | null,
-              id_token: account.id_token as string | null,
-              refresh_token: account.refresh_token as string | null,
-              scope: account.scope as string | null,
-              session_state: account.session_state as string | null,
-              token_type: account.token_type as string | null,
-            },
-          });
-          console.log("  ✅ OAuth account link saved");
-        }
-
-        return true;
-      } catch (error) {
-        console.error("  ❌ Error saving user/account to database:", error);
-        // Still allow sign-in even if database save fails
-        return true;
-      }
+      console.log("  ✅ Sign-in authorized for:", user.email);
+      return true;
     },
 
     /**
