@@ -30,22 +30,6 @@ export const {
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
-  // Explicit cookie configuration for Vercel
-  cookies: {
-    sessionToken: {
-      name:
-        process.env.NODE_ENV === "production"
-          ? "__Secure-authjs.session-token"
-          : "authjs.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-      },
-    },
-  },
-
   callbacks: {
     /**
      * JWT callback - called when creating or updating a JWT
